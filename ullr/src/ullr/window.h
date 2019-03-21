@@ -1,0 +1,53 @@
+#pragma once
+
+#include "defines.h"
+
+#include "events/event.h"
+
+namespace Ullr {
+
+  enum WindowMode
+  {
+    WINDOWED = 0,
+    FULL_SCREEN = 1,
+    BORDERLESS = 2
+  };
+  static const char* WindowModeString[] = { "WINDOWED", "FULL_SCREEN", "BORDERLESS" };
+
+  struct WindowProps
+  {
+    std::string Title;
+    unsigned int Width;
+    unsigned int Height;
+
+    WindowMode Mode;
+
+    WindowProps(const std::string& title = "Ullr Engine", unsigned int width = 1280, unsigned int height = 720, WindowMode mode = WindowMode::WINDOWED)
+      :Title(title), Width(width), Height(height), Mode(mode)
+    {}
+  };
+
+  class ULLR_API Window
+  {
+  public:
+    using EventCallbackFn = std::function<void(Events::Event&)>;
+
+    virtual ~Window() {}
+
+    virtual void Update() = 0;
+
+    virtual unsigned int getWidth() const = 0;
+    virtual unsigned int getHeight() const = 0;
+    virtual bool getIsVsync() const = 0;
+    virtual WindowMode getWindowMode() const = 0;
+
+    virtual void setEventCallback(const EventCallbackFn& callback) = 0;
+    virtual void setVSync(bool enabled) = 0;
+    virtual void setWindowMode(const WindowMode& Mode, unsigned int width = 0, unsigned int height = 0) = 0;
+
+    // Static method, implemented per platform
+    static Window* Create(const WindowProps& props = WindowProps());
+
+  };
+
+}
