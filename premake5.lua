@@ -34,7 +34,7 @@ project "ullr"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "src/ullrpch.h"
+	pchheader "ullrpch.h"
 	pchsource "%{prj.name}/src/ullrpch.cpp"
 
 	files {
@@ -53,7 +53,7 @@ project "ullr"
 --		"%{IncludeDir.glm}"
 	}
 
-	links { 
+	links {
 		"glfw",
 		"glad",
 --		"ImGui",
@@ -112,6 +112,9 @@ project "ullr"
 		--postbuildcommands {
 		--	("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
 		--}
+
+	filter { "system:macosx", "action:xcode4" }
+		pchheader "src/ullrpch.h"
 
 	filter "configurations:Debug"
 		defines { "ULLR_DEBUG", "UL_ENABLE_ASSERTS" }
@@ -184,10 +187,15 @@ project "sandbox"
 		defines "ULLR_RELEASE"
 		runtime "Release"
 		optimize "On"
-		linkoptions "-Wl,-rpath=./"
 
 	filter "configurations:Dist"
 		defines "ULLR_DIST"
 		runtime "Release"
 		optimize "On"
+
+-- Fix rpaths to point to local directory on release and dist builds for macos and linux
+	filter { "system:linux", "configurations:Release or configurations:Dist" }
 		linkoptions "-Wl,-rpath=./"
+
+	filter { "system:macosx", "configurations:Release or configurations:Dist" }
+		linkoptions "-Wl,-rpath,./"
