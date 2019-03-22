@@ -32,8 +32,13 @@
 #define ULLR_LOCAL ULLR_API_DLL_LOCAL
 
 #ifdef UL_ENABLE_ASSERTS
-  #define UL_ASSERT(x, ...) { if(!(x)) { UL_FATAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-  #define UL_CORE_ASSERT(x, ...) { if(!(x)) { UL_CORE_FATAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+  #ifdef ULLR_PLATFORM_WINDOWS
+    #define UL_ASSERT(x, ...) { if(!(x)) { UL_FATAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+    #define UL_CORE_ASSERT(x, ...) { if(!(x)) { UL_CORE_FATAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+  #else
+    #define UL_ASSERT(x, ...) { if(!(x)) { UL_FATAL("Assertion Failed: {0}", __VA_ARGS__); } }
+    #define UL_CORE_ASSERT(x, ...) { if(!(x)) { UL_CORE_FATAL("Assertion Failed: {0}", __VA_ARGS__); } }
+  #endif
 #else
   #define UL_ASSERT(x, ...)
   #define UL_CORE_ASSERT(x, ...)

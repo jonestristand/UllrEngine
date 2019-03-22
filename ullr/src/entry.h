@@ -21,4 +21,22 @@ int main()
   return 0;
 }
 
+#else
+
+int main()
+{
+  Ullr::Core::Startup();
+
+  if (!Ullr::Core::StartupSuccess)
+    return -1;
+
+  auto app = Ullr::CreateApplication();
+  app->Run();
+  delete app;
+
+  Ullr::Core::Shutdown();
+
+  return 0;
+}
+
 #endif

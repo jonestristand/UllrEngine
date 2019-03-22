@@ -12,7 +12,7 @@ namespace Ullr {
   static bool gGLFWInitialized = false;
 
   void Core::PlatformStartup() {
-    UL_CORE_TRACE("Platform-specific startup: Windows");
+    UL_CORE_TRACE("Platform-specific startup: Linux");
 
     if (!gGLFWInitialized)
     {
@@ -31,7 +31,7 @@ namespace Ullr {
   }
 
   void Core::PlatformShutdown() {
-    UL_CORE_TRACE("Platform-specific shutdown: Windows");
+    UL_CORE_TRACE("Platform-specific shutdown: Linux");
 
     if (gGLFWInitialized) {
       glfwTerminate();

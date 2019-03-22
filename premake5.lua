@@ -2,31 +2,28 @@ workspace "UllrEngine"
 	architecture "x64"
 	startproject "sandbox"
 
-	filter "system:windows"
-		disablewarnings { "4996", "4251" }
-
 	configurations {
 		"Debug",
 		"Release",
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
--- Include directories relative to root folder (solution directory)
-IncludeDir = {}
-IncludeDir["spdlog"] = "ullr/vendor/spdlog/include"
-IncludeDir["glfw"] = "ullr/vendor/glfw/include"
-IncludeDir["glad"] = "ullr/vendor/glad/include"
--- IncludeDir["ImGui"] = "Hazel/vendor/imgui"
--- IncludeDir["glm"] = "Hazel/vendor/glm"
+	-- Include directories relative to root folder (solution directory)
+	IncludeDir = {}
+	IncludeDir["spdlog"] = "ullr/vendor/spdlog/include"
+	IncludeDir["glfw"] = "ullr/vendor/glfw/include"
+	IncludeDir["glad"] = "ullr/vendor/glad/include"
+	-- IncludeDir["ImGui"] = "Hazel/vendor/imgui"
+	-- IncludeDir["glm"] = "Hazel/vendor/glm"
 
-group "dependencies"
-	include "ullr/vendor/glfw"
-	include "ullr/vendor/glad"
--- include "Hazel/vendor/imgui"
+	group "dependencies"
+		include "ullr/vendor/glfw"
+		include "ullr/vendor/glad"
+	-- include "Hazel/vendor/imgui"
 
-group""
+	group""
 
 project "ullr"
 	location "ullr"
@@ -60,17 +57,40 @@ project "ullr"
 		"glfw",
 		"glad",
 --		"ImGui",
-		"opengl32.lib"
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
 		systemversion "latest"
 
+		disablewarnings { "4996", "4251" }
+
 		defines {
 			"ULLR_PLATFORM_WINDOWS",
 			"ULLR_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
+		}
+
+		links {
+			"opengl32.lib"
+		}
+
+		postbuildcommands {
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
+		}
+
+	filter "system:linux"
+		cppdialect "C++17"
+		systemversion "latest"
+
+		defines {
+			"ULLR_PLATFORM_LINUX",
+			"ULLR_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
+
+		links {
+			"GL"
 		}
 
 		postbuildcommands {
@@ -123,6 +143,14 @@ project "sandbox"
 			"ULLR_PLATFORM_WINDOWS"
 		}
 
+		filter "system:linux"
+		cppdialect "C++17"
+		systemversion "latest"
+
+		defines {
+			"ULLR_PLATFORM_LINUX"
+		}
+
 	filter "configurations:Debug"
 		defines "ULLR_DEBUG"
 		runtime "Debug"
@@ -132,8 +160,10 @@ project "sandbox"
 		defines "ULLR_RELEASE"
 		runtime "Release"
 		optimize "On"
+		linkoptions "-Wl,-rpath=./"
 
 	filter "configurations:Dist"
 		defines "ULLR_DIST"
 		runtime "Release"
 		optimize "On"
+		linkoptions "-Wl,-rpath=./"

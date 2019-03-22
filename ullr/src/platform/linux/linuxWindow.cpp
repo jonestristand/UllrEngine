@@ -9,10 +9,9 @@
 #include "ullr/events/keyboardEvents.h"
 #include "ullr/events/mouseEvents.h"
 
+#include "ullr/core.h"
 
 namespace Ullr {
-
-  static bool gGLFWInitialized = false;
 
   Window* Window::Create(const WindowProps& props)
   {
@@ -32,20 +31,14 @@ namespace Ullr {
 
   void LinuxWindow::Init(const WindowProps& props)
   {
+    if (!Ullr::Core::StartupSuccess)
+      return;
+
     this->data.Title = props.Title;
     this->data.Width = props.Width;
     this->data.Height = props.Height;
 
     UL_CORE_INFO("Creating window '{0}' ({1}, {2})", props.Title, props.Width, props.Height);
-
-    if (!gGLFWInitialized)
-    { 
-      // TODO: glfwTerminate on system shutdown
-      int success = glfwInit();
-      UL_CORE_ASSERT(success, "Could not initialize GLFW!"); // TODO: proper error handling!
-
-      gGLFWInitialized = true;
-    }
 
     this->primaryMonitor = glfwGetPrimaryMonitor();
 
