@@ -33,12 +33,14 @@
 
 #ifdef UL_ENABLE_ASSERTS
   #ifdef ULLR_PLATFORM_WINDOWS
-    #define UL_ASSERT(x, ...) { if(!(x)) { UL_FATAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-    #define UL_CORE_ASSERT(x, ...) { if(!(x)) { UL_CORE_FATAL("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-  #else
-    #define UL_ASSERT(x, ...) { if(!(x)) { UL_FATAL("Assertion Failed: {0}", __VA_ARGS__); } }
-    #define UL_CORE_ASSERT(x, ...) { if(!(x)) { UL_CORE_FATAL("Assertion Failed: {0}", __VA_ARGS__); } }
+    #define UL_DEBUG_STOP() __debugbreak()
+  #elif defined ULLR_PLATFORM_LINUX
+    #include <signal.h>
+    #define UL_DEBUG_STOP()  raise(SIGTRAP)
   #endif
+
+  #define UL_ASSERT(x, ...) { if(!(x)) { UL_FATAL("Assertion Failed: {0}", __VA_ARGS__); UL_DEBUG_STOP(); } }
+   #define UL_CORE_ASSERT(x, ...) { if(!(x)) { UL_CORE_FATAL("Assertion Failed: {0}", __VA_ARGS__); UL_DEBUG_STOP(); } }
 #else
   #define UL_ASSERT(x, ...)
   #define UL_CORE_ASSERT(x, ...)
