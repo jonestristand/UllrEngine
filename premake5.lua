@@ -194,8 +194,9 @@ project "sandbox"
 		optimize "On"
 
 -- Fix rpaths to point to local directory on release and dist builds for macos and linux
-	filter { "system:linux", "configurations:Release or configurations:Dist" }
-		linkoptions "-Wl,-rpath=./"
+	filter { "system:linux or system:macosx", "configurations:Release or configurations:Dist" 
+}
+		runpathdirs { "bin/" .. outputdir .. "/%{prj.name}" }
 
-	filter { "system:macosx", "configurations:Release or configurations:Dist" }
-		linkoptions "-Wl,-rpath,./"
+--	filter { "system:macosx", "configurations:Release or configurations:Dist" }
+--		linkoptions {"-Wl,-rpath,./"
