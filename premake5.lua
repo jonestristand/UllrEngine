@@ -35,8 +35,8 @@ project "ullr"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "ullrpch.h"
-	pchsource "%{prj.name}/src/ullrpch.cpp"
-
+	pchsource "ullr/src/ullrpch.cpp"
+	
 	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
@@ -114,7 +114,7 @@ project "ullr"
 		--}
 
 	filter { "system:macosx", "action:xcode4" }
-		pchheader "src/ullrpch.h"
+		-- pchheader "src/ullrpch.h"
 
 	filter "configurations:Debug"
 		defines { "ULLR_DEBUG", "UL_ENABLE_ASSERTS" }
