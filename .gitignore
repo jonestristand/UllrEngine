@@ -2,6 +2,10 @@
 # Created by https://www.gitignore.io/api/c++,xcode,visualstudio,premake-gmake
 # Edit at https://www.gitignore.io/?templates=c++,xcode,visualstudio,premake-gmake
 
+## Rubbish
+Thumbs.db
+.DS_Store
+
 ### My output directories
 bin
 bin-int
@@ -52,6 +56,10 @@ obj/
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Project files (compiled by premake5)
+*.xcworkspace
+*.xcodeproj
 
 ## User settings
 xcuserdata/

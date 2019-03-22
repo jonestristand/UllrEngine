@@ -34,7 +34,7 @@
 #ifdef UL_ENABLE_ASSERTS
   #ifdef ULLR_PLATFORM_WINDOWS
     #define UL_DEBUG_STOP() __debugbreak()
-  #elif defined ULLR_PLATFORM_LINUX
+  #else
     #include <signal.h>
     #define UL_DEBUG_STOP()  raise(SIGTRAP)
   #endif

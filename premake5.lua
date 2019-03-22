@@ -34,8 +34,8 @@ project "ullr"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "ullrpch.h"
-	pchsource "ullr/src/ullrpch.cpp"
+	pchheader "src/ullrpch.h"
+	pchsource "%{prj.name}/src/ullrpch.cpp"
 
 	files {
 		"%{prj.name}/src/**.h",
@@ -97,6 +97,22 @@ project "ullr"
 			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
 		}
 
+	filter "system:macosx"
+		cppdialect "C++17"
+		systemversion "latest"
+
+		defines {
+			"ULLR_PLATFORM_MACOS",
+			"ULLR_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
+
+		linkoptions { "-framework Cocoa -framework CoreVideo -framework IOKit -framework OpenGL" }
+
+		--postbuildcommands {
+		--	("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
+		--}
+
 	filter "configurations:Debug"
 		defines { "ULLR_DEBUG", "UL_ENABLE_ASSERTS" }
 		runtime "Debug"
@@ -143,12 +159,20 @@ project "sandbox"
 			"ULLR_PLATFORM_WINDOWS"
 		}
 
-		filter "system:linux"
+	filter "system:linux"
 		cppdialect "C++17"
 		systemversion "latest"
 
 		defines {
 			"ULLR_PLATFORM_LINUX"
+		}
+
+	filter "system:macosx"
+		cppdialect "C++17"
+		systemversion "latest"
+
+		defines {
+			"ULLR_PLATFORM_MACOS"
 		}
 
 	filter "configurations:Debug"
