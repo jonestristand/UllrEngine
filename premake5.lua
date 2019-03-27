@@ -15,13 +15,13 @@ workspace "UllrEngine"
 	IncludeDir["spdlog"] = "ullr/vendor/spdlog/include"
 	IncludeDir["glfw"] = "ullr/vendor/glfw/include"
 	IncludeDir["glad"] = "ullr/vendor/glad/include"
-	-- IncludeDir["ImGui"] = "Hazel/vendor/imgui"
+	IncludeDir["ImGUI"] = "ullr/vendor/imgui"
 	-- IncludeDir["glm"] = "Hazel/vendor/glm"
 
 	group "dependencies"
 		include "ullr/vendor/glfw"
 		include "ullr/vendor/glad"
-	-- include "Hazel/vendor/imgui"
+		include "ullr/vendor/imgui"
 
 	group""
 
@@ -49,14 +49,14 @@ project "ullr"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
---		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.ImGUI}",
 --		"%{IncludeDir.glm}"
 	}
 
 	links {
 		"glfw",
 		"glad",
---		"ImGui",
+		"ImGUI",
 	}
 
 	filter "system:windows"
