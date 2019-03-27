@@ -9,11 +9,11 @@ namespace Ullr::Events {
   class ULLR_API WindowResizedEvent : public Event
   {
   public:
-    WindowResizedEvent(unsigned int width, unsigned int height)
+    WindowResizedEvent(uint32 width, uint32 height)
       : width(width), height(height) {}
 
-    inline unsigned int getWidth() const  { return this->width; }
-    inline unsigned int getHeight() const { return this->height; }
+    inline uint32 getWidth() const  { return this->width; }
+    inline uint32 getHeight() const { return this->height; }
 
     std::string ToString() const override
     {
@@ -21,12 +21,12 @@ namespace Ullr::Events {
       ss << "WindowResizeEvent: [" << this->width << ", " << this->height << "]";
       return ss.str();
     }
-
+    
     EVENT_CLASS_TYPE(EventType::WindowResize)
     EVENT_CLASS_CATEGORY(EventCategory::Application)
 
   private:
-    unsigned int width, height;
+    uint32 width, height;
   };
 
   /// === Window Closed Event ===

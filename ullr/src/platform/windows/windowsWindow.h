@@ -14,14 +14,14 @@ namespace Ullr {
 
     void Update() override;
 
-    inline unsigned int getWidth() const override { return this->data.Width; }
-    inline unsigned int getHeight() const override { return this->data.Height; }
+    inline uint32 getWidth() const override { return this->data.Width; }
+    inline uint32 getHeight() const override { return this->data.Height; }
     inline bool getIsVsync() const override { return this->data.VSync; }
     inline WindowMode getWindowMode() const override { return this->data.Mode; }
 
     inline void setEventCallback(const EventCallbackFn& callback) override { this->data.EventCallback = callback; }
     void setVSync(bool enabled) override; 
-    void setWindowMode(const WindowMode& mode, unsigned int width, unsigned int height) override;
+    void setWindowMode(const WindowMode& mode, uint32 width, uint32 height) override;
 
   private: // Methods
     virtual void Init(const WindowProps& props);
@@ -34,7 +34,7 @@ namespace Ullr {
     
     struct windowsWindowData {
       std::string Title;
-      unsigned int Width, Height;
+      uint32 Width, Height;
       bool VSync;
       WindowMode Mode;
 
@@ -43,8 +43,8 @@ namespace Ullr {
     windowsWindowData data;
 
     struct windowedParams {
-      unsigned int Width, Height;
-      int XPos, YPos;
+      uint32 Width, Height;
+      int32 XPos, YPos;
     };
     windowedParams oldWindowedParams;
   };

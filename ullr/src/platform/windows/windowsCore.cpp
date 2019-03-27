@@ -17,7 +17,7 @@ namespace Ullr {
     if (!gGLFWInitialized)
     {
       // TODO: glfwTerminate on system shutdown
-      int success = glfwInit();
+      int32 success = glfwInit();
       if (!success) {
         UL_CORE_FATAL("Could not initialize GLFW!");
         Core::StartupSuccess = false;

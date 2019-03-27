@@ -5,7 +5,7 @@
 
 //extern Ullr::Application* Ullr::CreateApplication();
 
-int main()
+int32 main()
 {
   Ullr::Core::Startup();
 
@@ -14,7 +14,6 @@ int main()
 
   auto app = Ullr::CreateApplication();
   app->Run();
-  delete app;
 
   Ullr::Core::Shutdown();
 
@@ -23,7 +22,7 @@ int main()
 
 #else
 
-int main()
+int32 main()
 {
   Ullr::Core::Startup();
 

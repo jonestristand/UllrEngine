@@ -45,7 +45,7 @@ project "ullr"
 	}
 
 	includedirs	{
-		"%{prj.name}/src",
+		"%{prj.name}/src", 
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.glfw}",
 		"%{IncludeDir.glad}",
@@ -119,16 +119,19 @@ project "ullr"
 	filter "configurations:Debug"
 		defines { "ULLR_DEBUG", "UL_ENABLE_ASSERTS" }
 		runtime "Debug"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "ULLR_RELEASE"
 		runtime "Release"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "ULLR_DIST"
 		runtime "Release"
+		buildoptions "/MD"
 		optimize "On"
 
 project "sandbox"
@@ -158,6 +161,8 @@ project "sandbox"
 		cppdialect "C++17"
 		systemversion "latest"
 
+		disablewarnings { "4996", "4251" }
+
 		defines {
 			"ULLR_PLATFORM_WINDOWS"
 		}
@@ -181,16 +186,19 @@ project "sandbox"
 	filter "configurations:Debug"
 		defines "ULLR_DEBUG"
 		runtime "Debug"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "ULLR_RELEASE"
 		runtime "Release"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "ULLR_DIST"
 		runtime "Release"
+		buildoptions "/MD"
 		optimize "On"
 
 -- Fix rpaths to point to local directory on release and dist builds for macos and linux

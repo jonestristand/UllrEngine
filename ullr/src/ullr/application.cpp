@@ -24,7 +24,13 @@ namespace Ullr {
     dispatcher.Dispatch<Events::WindowClosedEvent>(ULLR_BIND_EVENT_FN(Application::OnWindowClosed));
     dispatcher.Dispatch<Events::KeyPressedEvent>(ULLR_BIND_EVENT_FN(Application::OnKeyPressed));
 
-    // UL_CORE_TRACE("Received event: {0}", e);
+    //UL_CORE_TRACE("Received event: {0}", e);
+
+    for (auto it = this->layerStack.end(); it != this->layerStack.begin(); ) {
+      (*--it)->OnEvent(e);
+      if (e.Handled) // Prevent layers underneath from receiving handled events
+        break;
+    }
   }
 
   void Application::Run()
@@ -34,8 +40,19 @@ namespace Ullr {
       glClearColor(0.12f, 0.57f, 1.0f, 1);
       glClear(GL_COLOR_BUFFER_BIT);
 
+      for (Layer* layer : this->layerStack)
+        layer->OnUpdate();
+
       this->window->Update();
     }
+  }
+
+  void Application::PushLayer(Layer* layer) {
+    this->layerStack.PushLayer(layer);
+  }
+
+  void Application::PushOverlay(Layer* overlay) {
+    this->layerStack.PushOverlay(overlay);
   }
 
   bool Application::OnWindowClosed(Events::WindowClosedEvent& e)

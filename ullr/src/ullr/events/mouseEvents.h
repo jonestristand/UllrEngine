@@ -57,22 +57,22 @@ namespace Ullr::Events {
   class ULLR_API MouseButtonEvent : public Event
   {
   public:
-    inline int getButton() { return this->button; }
+    inline int32 getButton() { return this->button; }
 
     EVENT_CLASS_CATEGORY(EventCategory::Mouse | EventCategory::Input)
 
   protected:
-    MouseButtonEvent(int button)
+    MouseButtonEvent(int32 button)
       : button(button) {}
 
-    int button;
+    int32 button;
   };
 
   /// === Mouse Button Pressed Event ===
   class ULLR_API MouseButtonPressedEvent : public MouseButtonEvent
   {
   public:
-    MouseButtonPressedEvent(int button)
+    MouseButtonPressedEvent(int32 button)
       : MouseButtonEvent(button) {}
 
     std::string ToString() const override
@@ -89,7 +89,7 @@ namespace Ullr::Events {
   class ULLR_API MouseButtonReleasedEvent : public MouseButtonEvent
   {
   public:
-    MouseButtonReleasedEvent(int button)
+    MouseButtonReleasedEvent(int32 button)
       : MouseButtonEvent(button) {}
 
     std::string ToString() const override

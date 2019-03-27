@@ -2,6 +2,8 @@
 #include "defines.h"
 
 #include "window.h"
+#include "layerStack.h"
+
 #include "events/event.h"
 #include "events/applicationEvents.h"
 #include "events/keyboardEvents.h"
@@ -18,6 +20,9 @@ namespace Ullr {
     
     void OnEvent(Events::Event& e);
 
+    void PushLayer(Layer* layer);
+    void PushOverlay(Layer* layer);
+
   private: // methods
     bool OnWindowClosed(Events::WindowClosedEvent& e);
     bool OnKeyPressed(Events::KeyPressedEvent& e);
@@ -25,6 +30,8 @@ namespace Ullr {
   private: // fields
     std::unique_ptr<Window> window;
     bool running = true;
+
+    LayerStack layerStack;
   };
 
   // To be defined by client

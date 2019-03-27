@@ -8,13 +8,13 @@
 
 namespace Ullr {
 
-  class ULLR_API Log
+  class  Log
   {
   public:
-    static void Init(spdlog::level::level_enum coreLevel = spdlog::level::trace, spdlog::level::level_enum clientLevel = spdlog::level::trace);
+    ULLR_API static void Init(spdlog::level::level_enum coreLevel = spdlog::level::trace, spdlog::level::level_enum clientLevel = spdlog::level::trace);
 
-    inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return coreLogger; }
-    inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return clientLogger; }
+    ULLR_API inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return coreLogger; }
+    ULLR_API inline static std::shared_ptr<spdlog::logger>& GetClientLogger() { return clientLogger; }
 
   private:
     static std::shared_ptr<spdlog::logger> coreLogger;

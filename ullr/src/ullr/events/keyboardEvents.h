@@ -9,25 +9,25 @@ namespace Ullr::Events {
   class ULLR_API KeyEvent : public Event
   {
   public:
-    inline int getKeyCode() const { return this->keyCode; }
+    inline int32 getKeyCode() const { return this->keyCode; }
 
     EVENT_CLASS_CATEGORY(EventCategory::Input | EventCategory::Keyboard)
 
   protected:
-    KeyEvent(int keyCode)
+    KeyEvent(int32 keyCode)
       : keyCode(keyCode) {}
 
-    int keyCode;
+    int32 keyCode;
   };
 
   /// === Key Pressed Event ===
   class ULLR_API KeyPressedEvent : public KeyEvent
   {
   public:
-    KeyPressedEvent(int keyCode, int repeatCount)
+    KeyPressedEvent(int32 keyCode, uint32 repeatCount)
       : KeyEvent(keyCode), repeatCount(repeatCount) {}
 
-    inline unsigned int getRepeatCount() const { return this->repeatCount; }
+    inline uint32 getRepeatCount() const { return this->repeatCount; }
 
     std::string ToString() const override
     {
@@ -39,14 +39,14 @@ namespace Ullr::Events {
     EVENT_CLASS_TYPE(EventType::KeyPress)
 
   private:
-    int repeatCount;
+    uint32 repeatCount;
   };
 
   /// === Key Released Event ===
   class ULLR_API KeyReleasedEvent : public KeyEvent
   {
   public:
-    KeyReleasedEvent(int keyCode)
+    KeyReleasedEvent(int32 keyCode)
       : KeyEvent(keyCode) {}
 
     std::string ToString() const override
@@ -63,7 +63,7 @@ namespace Ullr::Events {
   class ULLR_API KeyTypedEvent : public KeyEvent
   {
   public:
-    KeyTypedEvent(int keyCode)
+    KeyTypedEvent(int32 keyCode)
       : KeyEvent(keyCode) {}
 
     std::string ToString() const override

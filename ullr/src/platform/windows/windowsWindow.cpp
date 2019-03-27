@@ -52,7 +52,7 @@ namespace Ullr {
       this->baseVideoMode.greenBits,
       this->baseVideoMode.blueBits);
 
-    this->glfwWindow = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
+    this->glfwWindow = glfwCreateWindow((int32)props.Width, (int32)props.Height, props.Title.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(this->glfwWindow); // OpenGL context created here
 
     // Change to windowed, fullscreen, or fullscreen borderless
@@ -63,14 +63,14 @@ namespace Ullr {
     this->setWindowMode(props.Mode, 0, 0);
 
     // Load OpenGL with GLAD
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    int32 status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     UL_CORE_ASSERT(status, "Failed to initialize Glad!");
 
     glfwSetWindowUserPointer(this->glfwWindow, &this->data); // Does this send correct address?
     this->setVSync(true);
 
     // Set GLFW callbacks
-    glfwSetWindowSizeCallback(this->glfwWindow, [](GLFWwindow* window, int width, int height) {
+    glfwSetWindowSizeCallback(this->glfwWindow, [](GLFWwindow* window, int32 width, int32 height) {
       windowsWindowData& data = *(windowsWindowData*)glfwGetWindowUserPointer(window);
 
       data.Width = width;
@@ -87,7 +87,7 @@ namespace Ullr {
       data.EventCallback(e);
     });
 
-    glfwSetKeyCallback(this->glfwWindow, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+    glfwSetKeyCallback(this->glfwWindow, [](GLFWwindow* window, int32 key, int32 scancode, int32 action, int32 mods)
     {
       windowsWindowData& data = *(windowsWindowData*)glfwGetWindowUserPointer(window);
       switch (action)
@@ -112,7 +112,7 @@ namespace Ullr {
       }
     });
 
-    glfwSetCharCallback(this->glfwWindow, [](GLFWwindow* window, unsigned int keycode)
+    glfwSetCharCallback(this->glfwWindow, [](GLFWwindow* window, uint32 keycode)
     {
       windowsWindowData& data = *(windowsWindowData*)glfwGetWindowUserPointer(window);
 
@@ -120,7 +120,7 @@ namespace Ullr {
       data.EventCallback(event);
     });
 
-    glfwSetMouseButtonCallback(this->glfwWindow, [](GLFWwindow* window, int button, int action, int mods)
+    glfwSetMouseButtonCallback(this->glfwWindow, [](GLFWwindow* window, int32 button, int32 action, int32 mods)
     {
       windowsWindowData& data = *(windowsWindowData*)glfwGetWindowUserPointer(window);
 
@@ -178,7 +178,7 @@ namespace Ullr {
     this->data.VSync = enabled;
   }
 
-  void WindowsWindow::setWindowMode(const WindowMode & mode, unsigned int width = 0, unsigned int height = 0)
+  void WindowsWindow::setWindowMode(const WindowMode & mode, uint32 width = 0, uint32 height = 0)
   {
     if (!this->glfwWindow) // Ensure there is a window to work on
       return;
