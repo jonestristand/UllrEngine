@@ -6,4 +6,4 @@
 	url = https://github.com/jonestristand/glfw
 [submodule "ullr/vendor/imgui"]
 	path = ullr/vendor/imgui
-	url = git@github.com:jonestristand/imgui.git
+	url = https://github.com/jonestristand/imgui
