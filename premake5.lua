@@ -42,7 +42,7 @@ workspace "UllrEngine"
   IncludeDir["glfw"] = "ullr/vendor/glfw/include"
   IncludeDir["glad"] = "ullr/vendor/glad/include"
   IncludeDir["ImGUI"] = "ullr/vendor/imgui"
-  -- IncludeDir["glm"] = "Hazel/vendor/glm"
+  IncludeDir["glm"] = "ullr/vendor/glm"
 
   group "dependencies"
     include "ullr/vendor/glfw"
@@ -66,8 +66,8 @@ project "ullr"
   files {
     "%{prj.name}/src/**.h",
     "%{prj.name}/src/**.cpp",
---    "%{prj.name}/vendor/glm/glm/**.hpp",
---    "%{prj.name}/vendor/glm/glm/**.inl",
+    "%{prj.name}/vendor/glm/glm/**.hpp",
+    "%{prj.name}/vendor/glm/glm/**.inl",
   }
 
   includedirs	{
@@ -75,8 +75,8 @@ project "ullr"
     "%{IncludeDir.spdlog}",
     "%{IncludeDir.glfw}",
     "%{IncludeDir.glad}",
-    "%{IncludeDir.ImGUI}",
---    "%{IncludeDir.glm}"
+    "%{IncludeDir.glm}",
+    "%{IncludeDir.ImGUI}"
   }
 
   links {
@@ -176,7 +176,8 @@ project "sandbox"
 
   includedirs {
     "%{IncludeDir.spdlog}",
-    "ullr/src"
+    "ullr/src",
+    "%{IncludeDir.glm}"
   }
 
   links {
