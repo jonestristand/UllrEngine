@@ -5,6 +5,7 @@
 ## Rubbish
 Thumbs.db
 .DS_Store
+imgui.ini
 
 ### My output directories
 bin
