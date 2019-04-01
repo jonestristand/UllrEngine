@@ -28,8 +28,8 @@ namespace Ullr {
   // Core logger
   #define UL_CORE_FATAL(...)   ::Ullr::Log::GetCoreLogger()->critical(__VA_ARGS__)
   #define UL_CORE_ERROR(...)   ::Ullr::Log::GetCoreLogger()->error(__VA_ARGS__)
-  #define UL_CORE_WARN(...)   ::Ullr::Log::GetCoreLogger()->warn(__VA_ARGS__)
-  #define UL_CORE_INFO(...)   ::Ullr::Log::GetCoreLogger()->info(__VA_ARGS__)
+  #define UL_CORE_WARN(...)    ::Ullr::Log::GetCoreLogger()->warn(__VA_ARGS__)
+  #define UL_CORE_INFO(...)    ::Ullr::Log::GetCoreLogger()->info(__VA_ARGS__)
   #define UL_CORE_TRACE(...)   ::Ullr::Log::GetCoreLogger()->trace(__VA_ARGS__)
 
   // Client logger

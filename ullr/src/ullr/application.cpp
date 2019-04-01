@@ -1,12 +1,19 @@
 #include "ullrpch.h"
 #include "application.h" 
 
+// TODO: THIS IS TEMPORARY
+#include "input/keyCodes.h"
 #include "glad/glad.h"
 
 namespace Ullr {
 
+  Application* Application::instance = nullptr;
+
   Application::Application()
   {
+    UL_CORE_ASSERT(!Application::instance, "Application already exists!")
+    Application::instance = this;
+
     this->window = std::unique_ptr<Window>(Window::Create());
 
     // Bind the event callback for the window
@@ -23,8 +30,6 @@ namespace Ullr {
     Events::EventDispatcher dispatcher(e);
     dispatcher.Dispatch<Events::WindowClosedEvent>(ULLR_BIND_EVENT_FN(Application::OnWindowClosed));
     dispatcher.Dispatch<Events::KeyPressedEvent>(ULLR_BIND_EVENT_FN(Application::OnKeyPressed));
-
-    //UL_CORE_TRACE("Received event: {0}", e);
 
     for (auto it = this->layerStack.end(); it != this->layerStack.begin(); ) {
       (*--it)->OnEvent(e);
@@ -49,10 +54,12 @@ namespace Ullr {
 
   void Application::PushLayer(Layer* layer) {
     this->layerStack.PushLayer(layer);
+    layer->OnAttach();
   }
 
   void Application::PushOverlay(Layer* overlay) {
     this->layerStack.PushOverlay(overlay);
+    overlay->OnAttach();
   }
 
   bool Application::OnWindowClosed(Events::WindowClosedEvent& e)
@@ -63,17 +70,8 @@ namespace Ullr {
 
   bool Application::OnKeyPressed(Events::KeyPressedEvent& e)
   {
-    if (e.getKeyCode() == 256) // Hack for ESCAPE key
+    if (e.getKeyCode() == ULLR_KEY_ESCAPE) // Hack for ESCAPE key
       this->running = false;
-
-    if (e.getKeyCode() == 65) // A
-      this->window->setWindowMode(WindowMode::WINDOWED);
-    if (e.getKeyCode() == 66) // B
-      this->window->setWindowMode(WindowMode::BORDERLESS);
-    if (e.getKeyCode() == 67) // C
-      this->window->setWindowMode(WindowMode::FULL_SCREEN, 1920, 1080);
-    if (e.getKeyCode() == 68) // A
-      this->window->setWindowMode(WindowMode::WINDOWED, 320, 240);
 
     return true;
   }

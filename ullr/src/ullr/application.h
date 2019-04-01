@@ -15,6 +15,7 @@ namespace Ullr {
   public:
     Application();
     virtual ~Application();
+    inline static Application& Get() { return *Application::instance; }
 
     void Run();
     
@@ -23,6 +24,7 @@ namespace Ullr {
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
 
+    inline Window& GetWindow() { return *(this->window); }
   private: // methods
     bool OnWindowClosed(Events::WindowClosedEvent& e);
     bool OnKeyPressed(Events::KeyPressedEvent& e);
@@ -32,6 +34,9 @@ namespace Ullr {
     bool running = true;
 
     LayerStack layerStack;
+
+  private: // static fields
+    static Application* instance;
   };
 
   // To be defined by client

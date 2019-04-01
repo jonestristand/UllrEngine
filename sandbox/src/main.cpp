@@ -12,7 +12,7 @@ public:
   }
 
   void OnEvent(Ullr::Events::Event& e) override {
-    UL_TRACE("{0}", e);
+    //UL_TRACE("{0}", e);
   }
 
 };
@@ -23,6 +23,7 @@ public:
   Sandbox() 
   { 
     this->PushLayer(new TristanLayer());
+    this->PushOverlay(new Ullr::ImGuiLayer());
   }
   ~Sandbox() { }
 };

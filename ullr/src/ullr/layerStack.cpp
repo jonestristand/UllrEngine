@@ -8,7 +8,6 @@ namespace Ullr {
     this->layerInsert = this->layers.begin();
   }
 
-
   LayerStack::~LayerStack()
   {
     for (Layer* layer : this->layers)

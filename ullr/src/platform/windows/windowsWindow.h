@@ -23,6 +23,8 @@ namespace Ullr {
     void setVSync(bool enabled) override; 
     void setWindowMode(const WindowMode& mode, uint32 width, uint32 height) override;
 
+    inline virtual void* GetNativeWindow() const { return this->glfwWindow; }
+
   private: // Methods
     virtual void Init(const WindowProps& props);
     virtual void Shutdown();

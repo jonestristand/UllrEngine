@@ -1,0 +1,14 @@
+#pragma once
+
+#define ULLR_MOUSE_BUTTON_1         0
+#define ULLR_MOUSE_BUTTON_2         1
+#define ULLR_MOUSE_BUTTON_3         2
+#define ULLR_MOUSE_BUTTON_4         3
+#define ULLR_MOUSE_BUTTON_5         4
+#define ULLR_MOUSE_BUTTON_6         5
+#define ULLR_MOUSE_BUTTON_7         6
+#define ULLR_MOUSE_BUTTON_8         7
+#define ULLR_MOUSE_BUTTON_LAST      ULLR_MOUSE_BUTTON_8
+#define ULLR_MOUSE_BUTTON_LEFT      ULLR_MOUSE_BUTTON_1
+#define ULLR_MOUSE_BUTTON_RIGHT     ULLR_MOUSE_BUTTON_2
+#define ULLR_MOUSE_BUTTON_MIDDLE    ULLR_MOUSE_BUTTON_3

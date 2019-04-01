@@ -45,6 +45,8 @@ namespace Ullr {
     virtual void setVSync(bool enabled) = 0;
     virtual void setWindowMode(const WindowMode& Mode, uint32 width = 0, uint32 height = 0) = 0;
 
+    virtual void* GetNativeWindow() const = 0;
+
     // Static method, implemented per platform
     static Window* Create(const WindowProps& props = WindowProps());
 
