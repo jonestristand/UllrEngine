@@ -53,9 +53,10 @@ workspace "UllrEngine"
 
 project "ullr"
   location "ullr"
-  kind "SharedLib"
+  kind "StaticLib"
   language "C++"
-  staticruntime "off"
+  cppdialect "C++17"
+  staticruntime "on"
 
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -86,14 +87,13 @@ project "ullr"
   }
 
   filter "system:windows"
-    cppdialect "C++17"
     systemversion "latest"
 
-    disablewarnings { "4996", "4251" }
+    --disablewarnings { "4996", "4251" }
 
     defines {
       "ULLR_PLATFORM_WINDOWS",
-      "ULLR_BUILD_DLL",
+--      "ULLR_BUILD_DLL",
       "GLFW_INCLUDE_NONE"
     }
 
@@ -101,17 +101,16 @@ project "ullr"
       "opengl32.lib"
     }
 
-    postbuildcommands {
-      ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
-    }
+--    postbuildcommands {
+--      ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
+--    }
 
   filter "system:linux"
-    cppdialect "C++17"
     systemversion "latest"
 
     defines {
       "ULLR_PLATFORM_LINUX",
-      "ULLR_BUILD_DLL",
+--      "ULLR_BUILD_DLL",
       "GLFW_INCLUDE_NONE"
     }
 
@@ -119,17 +118,16 @@ project "ullr"
       "GL"
     }
 
-    postbuildcommands {
-      ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
-    }
+--    postbuildcommands {
+--      ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/sandbox/\"")
+--    }
 
   filter "system:macosx"
-    cppdialect "C++17"
     systemversion "latest"
 
     defines {
       "ULLR_PLATFORM_MACOS",
-      "ULLR_BUILD_DLL",
+--      "ULLR_BUILD_DLL",
       "GLFW_INCLUDE_NONE"
     }
 
@@ -140,31 +138,32 @@ project "ullr"
     --}
 
   filter { "system:macosx", "action:xcode4" }
-    -- pchheader "src/ullrpch.h"
+    pchheader "src/ullrpch.h"
 
   filter "configurations:Debug"
     defines { "ULLR_DEBUG", "UL_ENABLE_ASSERTS" }
     runtime "Debug"
-    buildoptions "/MDd"
-    symbols "On"
+--    buildoptions "/MDd"
+    symbols "on"
 
   filter "configurations:Release"
     defines "ULLR_RELEASE"
     runtime "Release"
-    buildoptions "/MD"
-    optimize "On"
+--    buildoptions "/MD"
+    optimize "on"
 
   filter "configurations:Dist"
     defines "ULLR_DIST"
     runtime "Release"
-    buildoptions "/MD"
-    optimize "On"
+--    buildoptions "/MD"
+    optimize "on"
 
 project "sandbox"
   location "sandbox"
   kind "ConsoleApp"
   language "C++"
-  staticruntime "off"
+  cppdialect "C++17"
+  staticruntime "on"
 
   targetdir ("bin/" .. outputdir .. "/%{prj.name}")
   objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -185,17 +184,15 @@ project "sandbox"
   }
 
   filter "system:windows"
-    cppdialect "C++17"
     systemversion "latest"
 
-    disablewarnings { "4996", "4251" }
+--    disablewarnings { "4996", "4251" }
 
     defines {
       "ULLR_PLATFORM_WINDOWS"
     }
 
   filter "system:linux"
-    cppdialect "C++17"
     systemversion "latest"
 
     defines {
@@ -203,7 +200,6 @@ project "sandbox"
     }
 
   filter "system:macosx"
-    cppdialect "C++17"
     systemversion "latest"
 
     defines {
@@ -213,25 +209,24 @@ project "sandbox"
   filter "configurations:Debug"
     defines "ULLR_DEBUG"
     runtime "Debug"
-    buildoptions "/MDd"
-    symbols "On"
+--    buildoptions "/MDd"
+    symbols "on"
 
   filter "configurations:Release"
     defines "ULLR_RELEASE"
     runtime "Release"
-    buildoptions "/MD"
-    optimize "On"
+--    buildoptions "/MD"
+    optimize "on"
 
   filter "configurations:Dist"
     defines "ULLR_DIST"
     runtime "Release"
-    buildoptions "/MD"
-    optimize "On"
+--    buildoptions "/MD"
+    optimize "on"
 
 -- Fix rpaths to point to local directory on release and dist builds for macos and linux
-  filter { "system:linux or system:macosx", "configurations:Release or configurations:Dist" 
-}
-    runpathdirs { "bin/" .. outputdir .. "/%{prj.name}" }
+--  filter { "system:linux or system:macosx", "configurations:Release or configurations:Dist" }
+--    runpathdirs { "bin/" .. outputdir .. "/%{prj.name}" }
 
 --  filter { "system:macosx", "configurations:Release or configurations:Dist" }
 --    linkoptions {"-Wl,-rpath,./"
