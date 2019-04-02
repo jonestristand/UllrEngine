@@ -25,8 +25,8 @@ namespace Ullr::Events {
   { return static_cast<EventCategory>(static_cast<int>(a) | static_cast<int>(b)); }
 
   #define EVENT_CLASS_TYPE(type) static EventType getStaticType() { return type; }\
-                                 virtual EventType getEventType() const override { return getStaticType(); }\
-                                 virtual const char* getName() const override { return #type; }
+                                virtual EventType getEventType() const override { return getStaticType(); }\
+                                virtual const char* getName() const override { return #type; }
 
   #define EVENT_CLASS_CATEGORY(category) virtual EventCategory getCategoryFlags() const override { return category; }
 

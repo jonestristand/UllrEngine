@@ -1,5 +1,5 @@
 #include "ullrpch.h"
-#include "application.h" 
+#include "application.h"
 
 // TODO: THIS IS TEMPORARY
 #include "input/keyCodes.h"
@@ -19,7 +19,7 @@ namespace Ullr {
     // Bind the event callback for the window
     this->window->setEventCallback(ULLR_BIND_EVENT_FN(Application::OnEvent));
   }
-  
+
 
   Application::~Application()
   {

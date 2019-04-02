@@ -26,7 +26,7 @@ namespace Ullr {
 
 
   WindowsWindow::~WindowsWindow()
-  { 
+  {
     this->Shutdown();
   }
 
@@ -44,7 +44,7 @@ namespace Ullr {
     this->primaryMonitor = glfwGetPrimaryMonitor();
 
     this->baseVideoMode = *(glfwGetVideoMode(this->primaryMonitor));
-    UL_CORE_TRACE("Storing underlying OS video mode: {0}x{1}@{2}Hz (r{3}g{4}b{5})", 
+    UL_CORE_TRACE("Storing underlying OS video mode: {0}x{1}@{2}Hz (r{3}g{4}b{5})",
       this->baseVideoMode.width,
       this->baseVideoMode.height,
       this->baseVideoMode.refreshRate,
@@ -75,7 +75,7 @@ namespace Ullr {
 
       data.Width = width;
       data.Height = height;
-      
+
       Events::WindowResizedEvent e(width, height);
       data.EventCallback(e);
     });
@@ -161,7 +161,7 @@ namespace Ullr {
   {
     glfwDestroyWindow(this->glfwWindow);
   }
-  
+
   void WindowsWindow::Update()
   {
     glfwPollEvents();
@@ -186,7 +186,7 @@ namespace Ullr {
       return;
 
     // If currently windowed, stash the current size and position of the window
-    if (this->data.Mode == WindowMode::WINDOWED) { 
+    if (this->data.Mode == WindowMode::WINDOWED) {
       this->oldWindowedParams.Width = this->data.Width;
       this->oldWindowedParams.Height = this->data.Height;
       glfwGetWindowPos(this->glfwWindow, &(this->oldWindowedParams.XPos), &(this->oldWindowedParams.YPos));
@@ -205,7 +205,7 @@ namespace Ullr {
       // For windowed, use old window height and width if none provided
       width = this->oldWindowedParams.Width;
       height = this->oldWindowedParams.Height;
-      // monitor = nullptr; 
+      // monitor = nullptr;
     }
     else if (mode == WindowMode::FULL_SCREEN) {
       if (width == 0 || height == 0) {
@@ -227,10 +227,10 @@ namespace Ullr {
 
     // Record new window mode
     this->data.Mode = mode;
-    
+
     UL_CORE_INFO("Changing window mode to {0}: [{1}, {2}]", Ullr::WindowModeString[static_cast<int>(mode)], width, height);
 
-    glfwSetWindowMonitor(this->glfwWindow, monitor, this->oldWindowedParams.XPos, this->oldWindowedParams.YPos, width, height, this->baseVideoMode.refreshRate);    
+    glfwSetWindowMonitor(this->glfwWindow, monitor, this->oldWindowedParams.XPos, this->oldWindowedParams.YPos, width, height, this->baseVideoMode.refreshRate);
   }
 }
 

@@ -31,7 +31,7 @@ namespace Ullr {
     bool OnKeyTypedEvent(Events::KeyTypedEvent& e);
     bool OnKeyPressedEvent(Events::KeyPressedEvent& e);
     bool OnKeyReleasedEvent(Events::KeyReleasedEvent& e);
-    
+
     bool OnWindowResizedEvent(Events::WindowResizedEvent& e);
 
   private:
@@ -41,4 +41,3 @@ namespace Ullr {
   };
 
 }
-

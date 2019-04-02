@@ -21,7 +21,7 @@ namespace Ullr::Events {
       ss << "WindowResizeEvent: [" << this->width << ", " << this->height << "]";
       return ss.str();
     }
-    
+
     EVENT_CLASS_TYPE(EventType::WindowResize)
     EVENT_CLASS_CATEGORY(EventCategory::Application)
 

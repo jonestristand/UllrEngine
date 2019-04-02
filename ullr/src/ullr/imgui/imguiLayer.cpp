@@ -12,7 +12,7 @@ namespace Ullr {
 
   ImGuiLayer::ImGuiLayer()
     :Layer("ImGUILayer"), io(nullptr)
-  { 
+  {
     //this->io = ImGui::GetIO();
   }
 
@@ -66,7 +66,7 @@ namespace Ullr {
   {
     Application& app = Application::Get();
 
-    this->io->DisplaySize = ImVec2(app.GetWindow().getWidth(), app.GetWindow().getHeight());
+    this->io->DisplaySize = ImVec2((float)app.GetWindow().getWidth(), (float)app.GetWindow().getHeight());
 
     float time = (float)glfwGetTime();
     this->io->DeltaTime = this->time > 0.0 ? (time - this->time) : (1.0f / 60.0f);
@@ -159,7 +159,7 @@ namespace Ullr {
 
   bool ImGuiLayer::OnWindowResizedEvent(Events::WindowResizedEvent& e)
   {
-    this->io->DisplaySize = ImVec2(e.getWidth(), e.getHeight());
+    this->io->DisplaySize = ImVec2((float)e.getWidth(), (float)e.getHeight());
     this->io->DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
     glViewport(0, 0, e.getWidth(), e.getHeight());
     return false;

@@ -34,7 +34,7 @@ namespace Ullr {
       this->layerInsert--;
     }
   }
-  
+
   // TODO: concern that this function actually releases responsibility for the raw pointer without indicating this is the case
   // Consider just enable/disable of layers but layers created only in layerstack by layerstack (force ownership)
   void LayerStack::PopOverlay(Layer* overlay)

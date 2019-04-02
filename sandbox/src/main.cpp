@@ -20,8 +20,8 @@ public:
 class Sandbox : public Ullr::Application
 {
 public:
-  Sandbox() 
-  { 
+  Sandbox()
+  {
     this->PushLayer(new TristanLayer());
     this->PushOverlay(new Ullr::ImGuiLayer());
   }

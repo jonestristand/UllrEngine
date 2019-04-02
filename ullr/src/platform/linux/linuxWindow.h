@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 namespace Ullr {
-  
+
   class ULLR_API LinuxWindow : public Window
   {
   public:
@@ -20,7 +20,7 @@ namespace Ullr {
     inline WindowMode getWindowMode() const override { return this->data.Mode; }
 
     inline void setEventCallback(const EventCallbackFn& callback) override { this->data.EventCallback = callback; }
-    void setVSync(bool enabled) override; 
+    void setVSync(bool enabled) override;
     void setWindowMode(const WindowMode& mode, unsigned int width, unsigned int height) override;
 
   private: // Methods
@@ -31,7 +31,7 @@ namespace Ullr {
     GLFWwindow* glfwWindow;
     GLFWmonitor* primaryMonitor; // Stores a reference to the primary monitor
     GLFWvidmode baseVideoMode; // Stores the underlying video mode being used by the OS
-    
+
     struct linuxWindowData {
       std::string Title;
       unsigned int Width, Height;

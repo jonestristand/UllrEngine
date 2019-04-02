@@ -3,7 +3,7 @@
 #include "defines.h"
 
 namespace Ullr {
-  
+
   class ULLR_API Core
   {
   public:
@@ -21,4 +21,3 @@ namespace Ullr {
   };
 
 }
-

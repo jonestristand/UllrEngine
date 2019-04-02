@@ -9,7 +9,7 @@
 #include "events/keyboardEvents.h"
 
 namespace Ullr {
-  
+
   class ULLR_API Application
   {
   public:
@@ -18,7 +18,7 @@ namespace Ullr {
     inline static Application& Get() { return *Application::instance; }
 
     void Run();
-    
+
     void OnEvent(Events::Event& e);
 
     void PushLayer(Layer* layer);
@@ -43,4 +43,3 @@ namespace Ullr {
   Application* CreateApplication();
 
 }
-
