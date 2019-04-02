@@ -5,7 +5,7 @@
 
 namespace Ullr::Input {
 
-  class windowsInput : public InputManager
+  class windowsInputManager : public InputManager
   {
   public:
     static void Init();

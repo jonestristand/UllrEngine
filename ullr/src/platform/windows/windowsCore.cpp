@@ -5,7 +5,7 @@
 #include "ullr/core.h"
 #include "ullr/log.h"
 
-#include "platform/windows/windowsInput.h"
+#include "platform/windows/windowsInputManager.h"
 
 #include <GLFW/glfw3.h>
 
@@ -31,14 +31,14 @@ namespace Ullr {
     }
 
     UL_CORE_TRACE("Starting input manager");
-    Input::windowsInput::Init();
+    Input::windowsInputManager::Init();
   }
 
   void Core::PlatformShutdown() {
     UL_CORE_TRACE("Platform-specific shutdown: Windows");
 
     UL_CORE_TRACE("Stopping input manager");
-    Input::windowsInput::Shutdown();
+    Input::windowsInputManager::Shutdown();
 
     if (gGLFWInitialized) {
       glfwTerminate();

@@ -1,6 +1,6 @@
 #include "ullrpch.h"
 
-#include "windowsInput.h"
+#include "windowsInputManager.h"
 #include "ullr/application.h"
 
 #include <GLFW/glfw3.h>
@@ -9,44 +9,44 @@ namespace Ullr::Input {
 
   InputManager* InputManager::instance;
 
-  void windowsInput::Init()
+  void windowsInputManager::Init()
   {
-    InputManager::instance = new windowsInput();
+    InputManager::instance = new windowsInputManager();
   }
 
-  void windowsInput::Shutdown()
+  void windowsInputManager::Shutdown()
   {
     delete InputManager::instance;
   }
 
-  bool windowsInput::isKeyPressed(int keyCode) {
+  bool windowsInputManager::isKeyPressed(int keyCode) {
     auto window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
     auto state = glfwGetKey(window, keyCode);
     return state == GLFW_PRESS || state == GLFW_REPEAT;
   }
 
-  bool windowsInput::isMouseButtonPressed(int buttonCode)
+  bool windowsInputManager::isMouseButtonPressed(int buttonCode)
   {
     auto window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
     auto state = glfwGetMouseButton(window, buttonCode);
     return state == GLFW_PRESS;
   }
 
-  float windowsInput::getMouseX()
+  float windowsInputManager::getMouseX()
   {
     auto[x, y] = this->getMousePos();
 
     return x;
   }
 
-  float windowsInput::getMouseY()
+  float windowsInputManager::getMouseY()
   {
     auto[x, y] = this->getMousePos();
 
     return y;
   }
 
-  std::pair<float, float> windowsInput::getMousePos()
+  std::pair<float, float> windowsInputManager::getMousePos()
   {
     auto window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
     double xpos, ypos;
