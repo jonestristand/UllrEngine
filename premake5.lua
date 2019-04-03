@@ -34,6 +34,9 @@ workspace "UllrEngine"
     ".editorconfig"
   }
 
+  -- Ignore unsafe errors
+  defines { "_CRT_SECURE_NO_WARNINGS" }
+
   outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
   -- Include directories relative to root folder (solution directory)
@@ -51,6 +54,7 @@ workspace "UllrEngine"
 
   group""
 
+-- === Project: Ullr ==========================================================
 project "ullr"
   location "ullr"
   kind "StaticLib"
@@ -88,8 +92,7 @@ project "ullr"
 
   filter "system:windows"
     systemversion "latest"
-
-    --disablewarnings { "4996", "4251" }
+    linkoptions { "/ignore:4221" }
 
     defines {
       "ULLR_PLATFORM_WINDOWS",
@@ -158,6 +161,7 @@ project "ullr"
 --    buildoptions "/MD"
     optimize "on"
 
+-- === Project: Sandbox ==========================================================
 project "sandbox"
   location "sandbox"
   kind "ConsoleApp"
@@ -186,8 +190,7 @@ project "sandbox"
 
   filter "system:windows"
     systemversion "latest"
-
---    disablewarnings { "4996", "4251" }
+    linkoptions { "/ignore:4221" }
 
     defines {
       "ULLR_PLATFORM_WINDOWS"
