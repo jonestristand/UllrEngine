@@ -4,9 +4,7 @@
 namespace Ullr {
 
   LayerStack::LayerStack()
-  {
-    this->layerInsert = this->layers.begin();
-  }
+  {}
 
   LayerStack::~LayerStack()
   {
@@ -16,7 +14,8 @@ namespace Ullr {
 
   void LayerStack::PushLayer(Layer* layer)
   {
-    this->layerInsert = layers.emplace(this->layerInsert, layer);
+    layers.emplace(this->layers.begin() + this->layerInsertIndex, layer);
+    this->layerInsertIndex++;
   }
 
   void LayerStack::PushOverlay(Layer* overlay)
@@ -31,7 +30,7 @@ namespace Ullr {
     auto it = std::find(this->layers.begin(), this->layers.end(), layer);
     if (it != this->layers.end()) {
       this->layers.erase(it);
-      this->layerInsert--;
+      this->layerInsertIndex--;
     }
   }
 

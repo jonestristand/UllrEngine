@@ -7,7 +7,6 @@
 #include "ullr/application.h"
 #include "ullr/layer.h"
 #include "ullr/log.h"
-#include "ullr/imgui/imguiLayer.h"
 
 #include "ullr/events/event.h"
 #include "ullr/events/applicationEvents.h"

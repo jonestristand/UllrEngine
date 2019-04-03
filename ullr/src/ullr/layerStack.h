@@ -21,7 +21,7 @@ namespace Ullr {
 
   private:
     std::vector<Layer*> layers;
-    std::vector<Layer*>::iterator layerInsert;
+    uint32 layerInsertIndex = 0;
   };
 
 }

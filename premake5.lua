@@ -176,7 +176,8 @@ project "sandbox"
   includedirs {
     "%{IncludeDir.spdlog}",
     "ullr/src",
-    "%{IncludeDir.glm}"
+    "%{IncludeDir.glm}",
+    "%{IncludeDir.ImGUI}"
   }
 
   links {

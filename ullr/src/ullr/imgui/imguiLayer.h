@@ -17,22 +17,12 @@ namespace Ullr {
     ImGuiLayer();
     virtual ~ImGuiLayer();
 
-    void OnAttach();
-    void OnDetach();
-    void OnUpdate();
-    void OnEvent(Events::Event& event);
+    virtual void OnAttach() override;
+    virtual void OnDetach() override;
+    virtual void OnImGuiRender() override;
 
-  private:
-    bool OnMouseButtonPressedEvent(Events::MouseButtonPressedEvent& e);
-    bool OnMouseButtonReleasedEvent(Events::MouseButtonReleasedEvent& e);
-    bool OnMouseMovedEvent(Events::MouseMovedEvent& e);
-    bool OnMouseScrolledEvent(Events::MouseScrolledEvent& e);
-
-    bool OnKeyTypedEvent(Events::KeyTypedEvent& e);
-    bool OnKeyPressedEvent(Events::KeyPressedEvent& e);
-    bool OnKeyReleasedEvent(Events::KeyReleasedEvent& e);
-
-    bool OnWindowResizedEvent(Events::WindowResizedEvent& e);
+    void Begin();
+    void End();
 
   private:
     float time = 0.0;

@@ -20,14 +20,14 @@ namespace Ullr::Input {
   }
 
   bool windowsInputManager::isKeyPressed(int keyCode) {
-    auto window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
+    auto window = (GLFWwindow*)Application::Get().getWindow().GetNativeWindow();
     auto state = glfwGetKey(window, keyCode);
     return state == GLFW_PRESS || state == GLFW_REPEAT;
   }
 
   bool windowsInputManager::isMouseButtonPressed(int buttonCode)
   {
-    auto window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
+    auto window = (GLFWwindow*)Application::Get().getWindow().GetNativeWindow();
     auto state = glfwGetMouseButton(window, buttonCode);
     return state == GLFW_PRESS;
   }
@@ -48,7 +48,7 @@ namespace Ullr::Input {
 
   std::pair<float, float> windowsInputManager::getMousePos()
   {
-    auto window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
+    auto window = (GLFWwindow*)Application::Get().getWindow().GetNativeWindow();
     double xpos, ypos;
 
     glfwGetCursorPos(window, &xpos, &ypos);

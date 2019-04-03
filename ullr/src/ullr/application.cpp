@@ -1,5 +1,8 @@
 #include "ullrpch.h"
+
 #include "application.h"
+
+#include "utils/fpsImGuiLayer.h"
 
 // TODO: THIS IS TEMPORARY
 #include "input/keyCodes.h"
@@ -18,6 +21,11 @@ namespace Ullr {
 
     // Bind the event callback for the window
     this->window->setEventCallback(ULLR_BIND_EVENT_FN(Application::OnEvent));
+
+    this->imguiLayer = new ImGuiLayer();
+    this->PushOverlay(this->imguiLayer);
+
+    this->PushOverlay(new Utils::FpsImGuiLayer());
   }
 
 
@@ -45,9 +53,19 @@ namespace Ullr {
       glClearColor(0.12f, 0.57f, 1.0f, 1);
       glClear(GL_COLOR_BUFFER_BIT);
 
+      // TODO: This can likely all be done by the layer stack (LayerManager) itself, and not expose layers to the Application directly?
       for (Layer* layer : this->layerStack)
         layer->OnUpdate();
 
+      // Render ImGui interface
+      this->imguiLayer->Begin();
+
+      for (Layer* layer : this->layerStack)
+        layer->OnImGuiRender();
+
+      this->imguiLayer->End();
+
+      // Update the window
       this->window->Update();
     }
   }

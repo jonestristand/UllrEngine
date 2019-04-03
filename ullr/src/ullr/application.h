@@ -3,6 +3,7 @@
 
 #include "window.h"
 #include "layerStack.h"
+#include "imgui/imguiLayer.h" // TODO: Should not expose ImGuiLayer publicly - sol'n to store unique_pointers in layerStack so it has sole ownership
 
 #include "events/event.h"
 #include "events/applicationEvents.h"
@@ -24,7 +25,7 @@ namespace Ullr {
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
 
-    inline Window& GetWindow() { return *(this->window); }
+    inline Window& getWindow() { return *(this->window); }
   private: // methods
     bool OnWindowClosed(Events::WindowClosedEvent& e);
     bool OnKeyPressed(Events::KeyPressedEvent& e);
@@ -34,6 +35,7 @@ namespace Ullr {
     bool running = true;
 
     LayerStack layerStack;
+    ImGuiLayer* imguiLayer;
 
   private: // static fields
     static Application* instance;
