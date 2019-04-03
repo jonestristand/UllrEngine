@@ -164,7 +164,7 @@ project "ullr"
 -- === Project: Sandbox ==========================================================
 project "sandbox"
   location "sandbox"
-  kind "ConsoleApp"
+  kind "ConsoleApp" -- This is set to either ConsoleApp for Debug/Release, or WindowedApp for Windows:Dist
   language "C++"
   cppdialect "C++17"
   staticruntime "on"
@@ -223,6 +223,7 @@ project "sandbox"
     optimize "on"
 
   filter "configurations:Dist"
+    kind "WindowedApp"
     defines "ULLR_DIST"
     runtime "Release"
 --    buildoptions "/MD"

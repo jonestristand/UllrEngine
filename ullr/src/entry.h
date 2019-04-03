@@ -1,11 +1,11 @@
 #pragma once
 
 // Use #ifdef in future to use WinMain
-#ifdef ULLR_PLATFORM_WINDOWS
+#if defined(ULLR_PLATFORM_WINDOWS) && defined(ULLR_DIST)
 
 //extern Ullr::Application* Ullr::CreateApplication();
 
-int32 main()
+int32 WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
   Ullr::Core::Startup();
 
@@ -14,6 +14,7 @@ int32 main()
 
   auto app = Ullr::CreateApplication();
   app->Run();
+  delete app;
 
   Ullr::Core::Shutdown();
 
