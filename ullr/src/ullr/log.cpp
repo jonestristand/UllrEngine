@@ -12,11 +12,11 @@ namespace Ullr {
 
     coreLogger = spdlog::stdout_color_mt("ULLR");
     coreLogger->set_level(coreLevel);
-    coreLogger->info("Core logger started (level: {0})", spdlog::level::to_string_view(coreLevel));
+    UL_CORE_INFO("Core logger started (level: {0})", spdlog::level::to_string_view(coreLevel));
 
     clientLogger = spdlog::stdout_color_mt("CLIENT");
     clientLogger->set_level(clientLevel);
-    clientLogger->info("Client logger started (level: {0})", spdlog::level::to_string_view(clientLevel));
+    UL_CORE_INFO("Core logger started (level: {0})", spdlog::level::to_string_view(coreLevel));
   }
 
 }
