@@ -19,13 +19,13 @@ namespace Ullr::Input {
     delete InputManager::instance;
   }
 
-  bool windowsInputManager::isKeyPressed(int keyCode) {
+  bool windowsInputManager::isKeyPressed(int32 keyCode) {
     auto window = (GLFWwindow*)Application::Get().getWindow().GetNativeWindow();
     auto state = glfwGetKey(window, keyCode);
     return state == GLFW_PRESS || state == GLFW_REPEAT;
   }
 
-  bool windowsInputManager::isMouseButtonPressed(int buttonCode)
+  bool windowsInputManager::isMouseButtonPressed(int32 buttonCode)
   {
     auto window = (GLFWwindow*)Application::Get().getWindow().GetNativeWindow();
     auto state = glfwGetMouseButton(window, buttonCode);

@@ -1,12 +1,15 @@
 #include "ullrpch.h"
 
 #include "application.h"
+#include "window.h"
 
 #include "utils/fpsImGuiLayer.h"
 
 // TODO: THIS IS TEMPORARY
 #include "input/keyCodes.h"
 #include "glad/glad.h"
+#include <GLFW/glfw3.h>
+#include "graphics/renderer.h"
 
 namespace Ullr {
 
@@ -18,6 +21,7 @@ namespace Ullr {
     Application::instance = this;
 
     this->window = std::unique_ptr<Window>(Window::Create());
+    this->window->setVSync(true);
 
     // Bind the event callback for the window
     this->window->setEventCallback(ULLR_BIND_EVENT_FN(Application::OnEvent));
@@ -50,8 +54,13 @@ namespace Ullr {
   {
     while (this->running)
     {
-      glClearColor(0.12f, 0.57f, 1.0f, 1);
-      glClear(GL_COLOR_BUFFER_BIT);
+      float r = (sinf((float)this->time) + 1.0f) / 2.0f;
+      float g = (cosf((float)this->time) + 1.0f) / 2.0f;
+      float b = fmaxf(0.0, fminf(1.0, (tanf((float)this->time))));
+      Graphics::Renderer::SetClearColor(r, g, b);
+      Graphics::Renderer::ClearBuffer();
+
+      Graphics::Renderer::Render();
 
       // TODO: This can likely all be done by the layer stack (LayerManager) itself, and not expose layers to the Application directly?
       for (Layer* layer : this->layerStack)
@@ -67,6 +76,9 @@ namespace Ullr {
 
       // Update the window
       this->window->Update();
+
+      // Update the timer
+      this->time = glfwGetTime();
     }
   }
 

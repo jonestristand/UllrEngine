@@ -54,14 +54,3 @@
 #define BIT(x) (1 << x)
 
 #define ULLR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
-
-// Types
-typedef unsigned short  uint16;
-typedef unsigned int    uint32;
-typedef unsigned long   uint64;
-typedef unsigned char   byte;
-
-typedef short           int16;
-typedef int             int32;
-typedef long            int64;
-typedef char            sbyte;

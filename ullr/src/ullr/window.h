@@ -20,10 +20,12 @@ namespace Ullr {
     uint32 Width;
     uint32 Height;
 
+    bool VSync;
+
     WindowMode Mode;
 
-    WindowProps(const std::string& title = "Ullr Engine", uint32 width = 1280, uint32 height = 720, WindowMode mode = WindowMode::WINDOWED)
-      :Title(title), Width(width), Height(height), Mode(mode)
+    WindowProps(const std::string& title = "Ullr Engine", uint32 width = 1280, uint32 height = 720, WindowMode mode = WindowMode::WINDOWED, bool vsync = true)
+      :Title(title), Width(width), Height(height), Mode(mode), VSync(vsync)
     {}
   };
 

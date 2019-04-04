@@ -8,12 +8,12 @@ namespace Ullr::Input {
   class ULLR_API InputManager
   {
   public:
-    inline static bool IsKeyPressed(int keyCode) {
+    inline static bool IsKeyPressed(int32 keyCode) {
       UL_CORE_ASSERT(instance, "Input Manager not initialized");
       return instance->isKeyPressed(keyCode);
     }
 
-    inline static bool IsMouseButtonPressed(int buttonCode) {
+    inline static bool IsMouseButtonPressed(int32 buttonCode) {
       UL_CORE_ASSERT(instance, "Input Manager not initialized");
       return instance->isMouseButtonPressed(buttonCode);
     }
@@ -34,8 +34,8 @@ namespace Ullr::Input {
     }
 
   protected:
-    virtual bool isKeyPressed(int keyCode) = 0;
-    virtual bool isMouseButtonPressed(int buttonCode) = 0;
+    virtual bool isKeyPressed(int32 keyCode) = 0;
+    virtual bool isMouseButtonPressed(int32 buttonCode) = 0;
     virtual float getMouseX() = 0;
     virtual float getMouseY() = 0;
     virtual std::pair<float, float> getMousePos() = 0;

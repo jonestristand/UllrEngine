@@ -12,8 +12,8 @@ namespace Ullr::Input {
     static void Shutdown();
 
   protected:
-    virtual bool isKeyPressed(int keyCode) override;
-    virtual bool isMouseButtonPressed(int buttonCode)override;
+    virtual bool isKeyPressed(int32 keyCode) override;
+    virtual bool isMouseButtonPressed(int32 buttonCode)override;
     virtual float getMouseX() override;
     virtual float getMouseY() override;
     virtual std::pair<float, float> getMousePos() override;

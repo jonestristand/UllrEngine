@@ -20,9 +20,9 @@ namespace Ullr::Events {
     Mouse       = BIT(3)
   };
   inline EventCategory operator&(EventCategory a, EventCategory b)
-  { return static_cast<EventCategory>(static_cast<int>(a) & static_cast<int>(b)); }
+  { return static_cast<EventCategory>(static_cast<int32>(a) & static_cast<int32>(b)); }
   inline EventCategory operator|(EventCategory a, EventCategory b)
-  { return static_cast<EventCategory>(static_cast<int>(a) | static_cast<int>(b)); }
+  { return static_cast<EventCategory>(static_cast<int32>(a) | static_cast<int32>(b)); }
 
   #define EVENT_CLASS_TYPE(type) static EventType getStaticType() { return type; }\
                                 virtual EventType getEventType() const override { return getStaticType(); }\

@@ -5,7 +5,7 @@
 
 //extern Ullr::Application* Ullr::CreateApplication();
 
-int32 WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+int32 WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int32 nCmdShow)
 {
   Ullr::Core::Startup();
 

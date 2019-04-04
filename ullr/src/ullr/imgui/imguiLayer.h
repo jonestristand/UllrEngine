@@ -25,7 +25,6 @@ namespace Ullr {
     void End();
 
   private:
-    float time = 0.0;
     ImGuiIO* io;
     bool showFPS = true;
   };

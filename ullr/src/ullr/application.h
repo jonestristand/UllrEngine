@@ -33,6 +33,7 @@ namespace Ullr {
   private: // fields
     std::unique_ptr<Window> window;
     bool running = true;
+    double time = 0.0;
 
     LayerStack layerStack;
     ImGuiLayer* imguiLayer;

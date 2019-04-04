@@ -67,7 +67,7 @@ namespace Ullr {
     UL_CORE_ASSERT(status, "Failed to initialize Glad!");
 
     glfwSetWindowUserPointer(this->glfwWindow, &this->data); // Does this send correct address?
-    this->setVSync(true);
+    this->setVSync(props.VSync);
 
     // Set GLFW callbacks
     glfwSetWindowSizeCallback(this->glfwWindow, [](GLFWwindow* window, int32 width, int32 height) {
