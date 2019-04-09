@@ -8,6 +8,9 @@
 #define REVISION 0
 #define VERSION_STRING SS(MAJOR_VERSION.MINOR_VERSION.REVISION)
 
+#define OGL_MAJOR 4
+#define OGL_MINOR 6
+
 #ifdef UL_DYNAMIC_LINK
   #if defined ULLR_PLATFORM_WINDOWS || defined __CYGWIN__
     #define ULLR_API_DLL_IMPORT __declspec(dllimport)

@@ -40,7 +40,7 @@
     arg2Type arg2;\
     arg3Type arg3;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(arg0, arg1, arg2, arg3);\
 } while (0)
 
@@ -66,7 +66,7 @@
     arg1Type arg1;\
     arg2Type arg2;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(arg0, arg1, arg2);\
 } while (0)
 
@@ -89,7 +89,7 @@
     arg0Type arg0;\
     arg1Type arg1;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(arg0, arg1);\
 } while (0)
 
@@ -109,7 +109,7 @@
 \
     arg0Type arg0;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(arg0);\
 } while (0)
 
@@ -125,7 +125,7 @@
     }\
 \
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)();\
 } while (0)
 
@@ -155,7 +155,7 @@ do {\
     arg1Type arg1;\
     arg2Type arg2;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(self, arg0, arg1, arg2);\
 } while (0)
 
@@ -182,7 +182,7 @@ do {\
     arg0Type arg0;\
     arg1Type arg1;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(self, arg0, arg1);\
 } while (0)
 
@@ -206,7 +206,7 @@ do {\
     selfType self;\
     arg0Type arg0;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(self, arg0);\
 } while (0)
 
@@ -227,6 +227,6 @@ do {\
 \
     selfType self;\
   };\
-  auto mem = ::Ullr::Graphics::Renderer::Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
+  auto mem = ::Ullr::Graphics::RenderManager::Get()->Submit(UL_RENDER_PASTE(commandName, Command)::Execute, sizeof(UL_RENDER_PASTE(commandName, Command)));\
   new (mem) UL_RENDER_PASTE(commandName, Command)(self);\
 } while (0)

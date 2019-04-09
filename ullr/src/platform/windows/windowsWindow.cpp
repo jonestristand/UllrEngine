@@ -10,6 +10,7 @@
 #include "ullr/events/mouseEvents.h"
 
 #include "ullr/core.h"
+#include "ullr/defines.h"
 
 namespace Ullr {
 
@@ -38,6 +39,12 @@ namespace Ullr {
     this->data.Title = props.Title;
     this->data.Width = props.Width;
     this->data.Height = props.Height;
+
+    // Set window hints
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OGL_MAJOR);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OGL_MINOR);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
     UL_CORE_INFO("Creating window '{0}' ({1}, {2})", props.Title, props.Width, props.Height);
 

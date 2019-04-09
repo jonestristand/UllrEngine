@@ -1,7 +1,7 @@
 #include "ullrpch.h"
 #include "core.h"
 #include "log.h"
-#include "graphics/renderer.h"
+#include "graphics/renderManager.h"
 
 namespace Ullr {
 
@@ -9,14 +9,14 @@ namespace Ullr {
 
   /* static */void Core::Startup()
   {
-    Ullr::Log::Init(spdlog::level::warn, spdlog::level::warn); // Start logging first
+    Ullr::Log::Init(spdlog::level::trace, spdlog::level::warn); // Start logging first
 
     UL_CORE_TRACE("=== Ullr Engine v" VERSION_STRING " Core startup ===============");
 
     Ullr::Core::PlatformStartup();
 
     // Create renderer
-    Graphics::Renderer::Init();
+//    Graphics::RenderManager::Init();
   }
 
   /* static */void Core::Shutdown()
@@ -26,7 +26,7 @@ namespace Ullr {
     UL_CORE_TRACE("=== Ullr Engine Core shutdown ======================");
 
     // Destroy renderer
-    Graphics::Renderer::Shutdown();
+//    Graphics::RenderManager::Shutdown();
   }
 
   Core::Core()

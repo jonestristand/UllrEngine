@@ -46,12 +46,13 @@ workspace "UllrEngine"
   IncludeDir["glad"] = "ullr/vendor/glad/include"
   IncludeDir["ImGUI"] = "ullr/vendor/imgui"
   IncludeDir["glm"] = "ullr/vendor/glm"
+  IncludeDir["stb"] = "ullr/vendor/stb"
 
   group "dependencies"
     include "ullr/vendor/glfw"
     include "ullr/vendor/glad"
     include "ullr/vendor/imgui"
-
+    include "ullr/vendor/stb"
   group""
 
 -- === Project: Ullr ==========================================================
@@ -81,13 +82,15 @@ project "ullr"
     "%{IncludeDir.glfw}",
     "%{IncludeDir.glad}",
     "%{IncludeDir.glm}",
-    "%{IncludeDir.ImGUI}"
+    "%{IncludeDir.ImGUI}",
+    "%{IncludeDir.stb}"
   }
 
   links {
     "glfw",
     "glad",
     "ImGUI",
+    "stb"
   }
 
   filter "system:windows"

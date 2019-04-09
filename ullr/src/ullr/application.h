@@ -4,6 +4,7 @@
 #include "window.h"
 #include "layerStack.h"
 #include "imgui/imguiLayer.h" // TODO: Should not expose ImGuiLayer publicly - sol'n to store unique_pointers in layerStack so it has sole ownership
+#include "graphics/renderManager.h"
 
 #include "events/event.h"
 #include "events/applicationEvents.h"
@@ -26,9 +27,13 @@ namespace Ullr {
     void PushOverlay(Layer* layer);
 
     inline Window& getWindow() { return *(this->window); }
+
   private: // methods
     bool OnWindowClosed(Events::WindowClosedEvent& e);
     bool OnKeyPressed(Events::KeyPressedEvent& e);
+
+  protected: // fields
+    std::shared_ptr<Graphics::RenderManager> renderManager;
 
   private: // fields
     std::unique_ptr<Window> window;
