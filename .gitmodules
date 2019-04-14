@@ -13,3 +13,6 @@
 [submodule "ullr/vendor/glad"]
 	path = ullr/vendor/glad
 	url = https://github.com/jonestristand/glad
+[submodule "ullr/vendor/assimp"]
+	path = ullr/vendor/assimp
+	url = https://github.com/jonestristand/assimp

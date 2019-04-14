@@ -47,12 +47,14 @@ workspace "UllrEngine"
   IncludeDir["ImGUI"] = "ullr/vendor/imgui"
   IncludeDir["glm"] = "ullr/vendor/glm"
   IncludeDir["stb"] = "ullr/vendor/stb"
+  IncludeDir["assimp"] = "ullr/vendor/assimp/include"
 
   group "dependencies"
     include "ullr/vendor/glfw"
     include "ullr/vendor/glad"
     include "ullr/vendor/imgui"
     include "ullr/vendor/stb"
+    include "ullr/vendor/assimp"
   group""
 
 -- === Project: Ullr ==========================================================
@@ -83,7 +85,8 @@ project "ullr"
     "%{IncludeDir.glad}",
     "%{IncludeDir.glm}",
     "%{IncludeDir.ImGUI}",
-    "%{IncludeDir.stb}"
+    "%{IncludeDir.stb}",
+    "%{IncludeDir.assimp}"
   }
 
   links {
