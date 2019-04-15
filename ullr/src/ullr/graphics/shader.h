@@ -1,8 +1,6 @@
 #pragma once
 
-#include "glad/glad.h"
-
-#include "spdlog/fmt/ostr.h"
+//#include "spdlog/fmt/ostr.h"
 
 namespace Ullr::Graphics {
 
@@ -15,22 +13,31 @@ namespace Ullr::Graphics {
     void CompileAndLoad();
     void Bind();
 
-    void SetUniform4f(const char* name, glm::vec4 vec);
-    void SetUniform1i(const char* name, int32 val);
-    void SetUniformMatrix4f(const char* name, glm::mat4 mat);
+    void SetUniform1f(const std::string& name, float val);
+    void SetUniform3f(const std::string& name, glm::vec3 vec);
+    void SetUniform4f(const std::string& name, glm::vec4 vec);
+    void SetUniform1i(const std::string& name, int32 val);
+    void SetUniformMatrix4f(const std::string& name, glm::mat4 mat);
 
     inline bool IsLoaded() { return this->programLoaded; }
 
+    inline std::string ToString() const { return this->filename; }
+
   private: // methods
-    GLenum getShaderTypeFromString(const std::string& shaderType);
+    uint32 getShaderTypeFromString(const std::string& shaderType);
 
   private: // fields
-    std::unordered_map<GLenum, std::string>* shaderSources;
+    std::unordered_map<uint32, std::string>* shaderSources;
     std::string filename;
 
-    GLuint shaderProgramId;
+    uint32 shaderProgramId;
 
     bool programLoaded;
   };
+
+  inline std::ostream& operator<<(std::ostream& os, const Shader& s)
+  {
+    return os << s.ToString();
+  }
 
 }

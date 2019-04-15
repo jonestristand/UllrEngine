@@ -5,6 +5,8 @@
 #include "renderManager.h"
 #include "renderMacros.h"
 
+#include "glad/glad.h"
+
 #include <regex>
 
 namespace Ullr::Graphics {
@@ -35,7 +37,7 @@ namespace Ullr::Graphics {
       while (next != ender) {
         std::smatch match = *next;
 
-        GLenum shaderType = this->getShaderTypeFromString(match.str(1));
+        uint32 shaderType = this->getShaderTypeFromString(match.str(1));
         if (shaderType)
           this->shaderSources->insert({ shaderType, match.str(2) });
 
@@ -112,27 +114,48 @@ namespace Ullr::Graphics {
     });
   }
 
-  void Shader::SetUniform4f(const char* name, glm::vec4 vec)
+  void Shader::SetUniform1f(const std::string& name, float val)
+  {
+    DISPATCH_RENDER_SELF_FN2(SetUniform1f, name, val, {
+      glUseProgram(self->shaderProgramId);
+      int32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name.c_str());
+      glUniform1f(uniformLocation, val);
+      });
+  }
+
+  void Shader::SetUniform3f(const std::string& name, glm::vec3 vec)
+  {
+    DISPATCH_RENDER_SELF_FN2(SetUniform3f, name, vec, {
+      glUseProgram(self->shaderProgramId);
+      int32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name.c_str());
+      glUniform3f(uniformLocation, vec[0], vec[1], vec[2]);
+      });
+  }
+
+  void Shader::SetUniform4f(const std::string& name, glm::vec4 vec)
   {
     DISPATCH_RENDER_SELF_FN2(SetUniform4f, name, vec, {
-      uint32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name);
+      glUseProgram(self->shaderProgramId);
+      int32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name.c_str());
       glUniform4f(uniformLocation, vec[0], vec[1], vec[2], vec[3]);
     });
   }
 
-  void Shader::SetUniform1i(const char* name, int32 val)
+  void Shader::SetUniform1i(const std::string& name, int32 val)
   {
     DISPATCH_RENDER_SELF_FN2(SetUniform1i, name, val, {
-      uint32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name);
+      glUseProgram(self->shaderProgramId);
+      int32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name.c_str());
       glUniform1i(uniformLocation, val);
     });
 
   }
 
-  void Shader::SetUniformMatrix4f(const char* name, glm::mat4 mat)
+  void Shader::SetUniformMatrix4f(const std::string& name, glm::mat4 mat)
   {
-    DISPATCH_RENDER_SELF_FN2(SetUniform1i, name, mat, {
-      uint32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name);
+    DISPATCH_RENDER_SELF_FN2(SetUniformMatrix4f, name, mat, {
+      glUseProgram(self->shaderProgramId);
+      int32 uniformLocation = glGetUniformLocation(self->shaderProgramId, name.c_str());
       glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(mat));
     });
   }

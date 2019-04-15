@@ -9,13 +9,25 @@
 
 namespace Ullr::Graphics {
 
-  Texture::Texture(const std::string path)
-    : textureId(0), filePath(path), localBuffer(nullptr), width(0), height(0), nChannels(0)
+  Texture::Texture(const std::string& path, const std::string& type)
+    : textureId(0), filePath(path), type(type), localBuffer(nullptr), width(0), height(0), nChannels(0)
+  { }
+
+  Texture::Texture(const std::string& path)
+    : Texture(path, "diffuse")
+  { }
+
+  Texture::~Texture()
+  { }
+
+  void Texture::LoadTexture()
   {
-    DISPATCH_RENDER_SELF_FN1(CreateTexture, path, {
+    auto self = this;
+    // TODO: Debug this
+    //DISPATCH_RENDER_SELF_FN(CreateTexture, {
       stbi_set_flip_vertically_on_load(true);
-      self->localBuffer = stbi_load(path.c_str(), &self->width, &self->height, &self->nChannels, 4);
-      
+      self->localBuffer = stbi_load(self->filePath.c_str(), &self->width, &self->height, &self->nChannels, 4);
+
       glGenTextures(1, &self->textureId);
       glBindTexture(GL_TEXTURE_2D, self->textureId);
 
@@ -30,11 +42,10 @@ namespace Ullr::Graphics {
       glBindTexture(GL_TEXTURE_2D, 0);
       if (self->localBuffer)
         stbi_image_free(self->localBuffer);
-    });
+    //});
   }
 
-
-  Texture::~Texture()
+  void Texture::UnloadTexture()
   {
     DISPATCH_RENDER_SELF_FN(DeleteTexture, {
       glDeleteTextures(1, &self->textureId);

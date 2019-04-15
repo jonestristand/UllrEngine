@@ -1,25 +1,33 @@
 #pragma once
 
-#include "vertexBuffer.h"
-#include "indexBuffer.h"
-
-#include "glad/glad.h"
+#include "texture.h"
+#include "shader.h"
 
 namespace Ullr::Graphics {
 
   class Mesh
   {
   public:
-    Mesh(float vertices[], uint32 vertexsize, void* indices, uint32 indexsize, uint32 vertexCount);
+    struct Vertex {
+      glm::vec3 Position;
+      glm::vec3 Normal;
+      glm::vec2 TexCoords;
+    };
+
+  public:
+    Mesh(const std::vector<Vertex>& vertices, const std::vector<uint32>& indices, const std::vector<Texture>& textures);
     ~Mesh();
 
-    void Render();
+    void Render(Ullr::Graphics::Shader& shader);
 
   private:
-    VertexBuffer* vb;
-    IndexBuffer* ib;
-    GLuint vertexArrayId;
-    GLuint vertexCount;
+    std::vector<Vertex>   vertices;
+    std::vector<uint32>   indices;
+    std::vector<Texture>  textures;
+
+    uint32 vao;
+    uint32 vbo;
+    uint32 ebo;
   };
 
 }

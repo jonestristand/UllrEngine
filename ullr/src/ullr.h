@@ -17,5 +17,8 @@
 #include "ullr/input/mouseCodes.h"
 #include "ullr/input/inputManager.h"
 
+#include "ullr/graphics/shader.h"
+#include "ullr/graphics/model.h"
+
 // --- Entry point, compiles into client binary
 #include "entry.h"

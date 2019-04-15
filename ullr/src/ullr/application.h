@@ -28,6 +28,8 @@ namespace Ullr {
 
     inline Window& getWindow() { return *(this->window); }
 
+    inline double getTime() { return this->time; }
+
   private: // methods
     bool OnWindowClosed(Events::WindowClosedEvent& e);
     bool OnKeyPressed(Events::KeyPressedEvent& e);

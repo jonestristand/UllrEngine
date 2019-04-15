@@ -7,6 +7,10 @@ Thumbs.db
 .DS_Store
 imgui.ini
 
+### 3d models
+sandbox/assets/models
+sandbox/assets/textures
+
 ### My output directories
 bin
 bin-int

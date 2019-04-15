@@ -48,6 +48,7 @@ workspace "UllrEngine"
   IncludeDir["glm"] = "ullr/vendor/glm"
   IncludeDir["stb"] = "ullr/vendor/stb"
   IncludeDir["assimp"] = "ullr/vendor/assimp/include"
+  IncludeDir["assimpcfg"] = "ullr/vendor/assimp/config"
 
   group "dependencies"
     include "ullr/vendor/glfw"
@@ -86,14 +87,16 @@ project "ullr"
     "%{IncludeDir.glm}",
     "%{IncludeDir.ImGUI}",
     "%{IncludeDir.stb}",
-    "%{IncludeDir.assimp}"
+    "%{IncludeDir.assimp}",
+    "%{IncludeDir.assimpcfg}"
   }
 
   links {
     "glfw",
     "glad",
     "ImGUI",
-    "stb"
+    "stb",
+    "assimp"
   }
 
   filter "system:windows"
@@ -184,8 +187,8 @@ project "sandbox"
   }
 
   includedirs {
-    "%{IncludeDir.spdlog}",
     "ullr/src",
+    "%{IncludeDir.spdlog}",
     "%{IncludeDir.glm}",
     "%{IncludeDir.ImGUI}"
   }
