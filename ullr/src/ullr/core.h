@@ -4,7 +4,7 @@
 
 namespace Ullr {
 
-  class ULLR_API Core
+  class Core
   {
   public:
     static void Startup();

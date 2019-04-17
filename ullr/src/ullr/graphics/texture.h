@@ -15,7 +15,7 @@ namespace Ullr::Graphics {
     void UnloadTexture();
 
     void Bind(uint32 slot = 0);
-    void Unbind();
+    //void Unbind();
 
     inline uint32 getWidth() { return this->width; }
     inline uint32 getHeight() { return this->height; }

@@ -33,7 +33,7 @@ private:
 
 MainLayer::MainLayer()
   : Layer("Main Layer"), io(nullptr),
-  lightPos(8.0f, 12.0f, 8.0f), lightDiffuse(1.0f, 1.0f, 1.0f), lightAmbient(0.5f, 0.5f, 0.5f), lightSpecular(1.0f, 1.0f, 1.0f), shininess(64.0f),
+  lightPos(8.0f, 12.0f, 8.0f), lightDiffuse(1.0f, 1.0f, 1.0f), lightAmbient(0.5f, 0.5f, 0.5f), lightSpecular(1.0f, 1.0f, 1.0f), shininess(8.0f),
   modelShader("assets/shaders/main_tex.glsl"), lampShader("assets/shaders/lamp.glsl"),
   nanosuit("assets/models/nanosuit/nanosuit.obj"), lamp("assets/models/lamp/lamp.obj")
 {
@@ -54,7 +54,6 @@ void MainLayer::OnDetach()
   this->io = nullptr; // Stop pointing to ImGuiIO - ImGui to manage lifetime of object
 }
 
-
 void MainLayer::OnUpdate()
 {
   glm::mat4 projection = glm::perspective(glm::radians(60.0f), (float)Ullr::Application::Get().getWindow().getWidth() / (float)Ullr::Application::Get().getWindow().getHeight(), 0.1f, 1000.0f);
@@ -73,26 +72,25 @@ void MainLayer::OnUpdate()
   //this->modelShader.Bind();
 
   // Set mvp uniforms
-  this->modelShader.SetUniformMatrix4f("model", modelModel);
-  this->modelShader.SetUniformMatrix4f("mvp", (projection * viewModel * modelModel));
-  this->modelShader.SetUniform3f("viewPos", -this->cameraPos);
+  this->modelShader.SetUniform("model", modelModel);
+  this->modelShader.SetUniform("mvp", (projection * viewModel * modelModel));
+  this->modelShader.SetUniform("viewPos", -this->cameraPos);
 
   // Set light uniforms
-  this->modelShader.SetUniform3f("light.position", this->lightPos);
-  this->modelShader.SetUniform3f("light.ambient", this->lightAmbient);
-  this->modelShader.SetUniform3f("light.diffuse", this->lightDiffuse);
-  this->modelShader.SetUniform3f("light.specular", this->lightSpecular);
+  this->modelShader.SetUniform("light.position", this->lightPos);
+  this->modelShader.SetUniform("light.ambient", this->lightAmbient);
+  this->modelShader.SetUniform("light.diffuse", this->lightDiffuse);
+  this->modelShader.SetUniform("light.specular", this->lightSpecular);
 
   // material properties
-  this->modelShader.SetUniform1f("material.shininess", this->shininess);
-
+  this->modelShader.SetUniform("material.shininess", this->shininess);
+  
   // Render the model
   this->nanosuit.Render(this->modelShader);
 
   //this->lampShader.Bind();
-  this->lampShader.SetUniformMatrix4f("mvp", (projection * viewLamp * modelLamp));
-  this->lampShader.SetUniform3f("color", lightSpecular);
-
+  this->lampShader.SetUniform("mvp", (projection * viewLamp * modelLamp));
+  this->lampShader.SetUniform("color", lightSpecular);
   // Render the lamp
   this->lamp.Render(lampShader);
 }
@@ -115,6 +113,9 @@ void MainLayer::OnImGuiRender()
     ImGui::End();
   }
 }
+
+
+
 
 class Sandbox : public Ullr::Application
 {

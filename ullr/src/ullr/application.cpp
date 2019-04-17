@@ -2,19 +2,15 @@
 
 #include "application.h"
 #include "window.h"
-#include "graphics/shader.h"
-#include "graphics/texture.h"
-#include "graphics/mesh.h"
-#include "graphics/model.h"
-#include "graphics/renderMacros.h"
+#include "graphics/renderManager.h"
 
 #include "utils/fpsImGuiLayer.h"
+#include "graphics/command/imguiCommands.hpp"
 
 // TODO: THIS IS TEMPORARY
 #include "input/keyCodes.h"
-//#include "glad/glad.h"
 #include <GLFW/glfw3.h>
-#include "graphics/renderManager.h"
+
 
 namespace Ullr {
 
@@ -44,14 +40,12 @@ namespace Ullr {
     this->PushOverlay(this->imguiLayer);
 
     this->PushOverlay(new Utils::FpsImGuiLayer());
-
   }
 
 
   Application::~Application()
   {
     this->renderManager->Shutdown();
-//    delete this->renderManager;
   }
 
   void Application::OnEvent(Events::Event& e)
@@ -79,15 +73,8 @@ namespace Ullr {
       for (Layer* layer : this->layerStack)
         layer->OnUpdate();
 
-      DISPATCH_RENDER_SELF_FN(RenderImGUI, {
-        // Render ImGui interface
-        self->imguiLayer->Begin();
-
-        for (Layer* layer : self->layerStack)
-          layer->OnImGuiRender();
-
-        self->imguiLayer->End();
-      });
+      // Submit RenderImGUICommand
+      Graphics::Command::RenderImGUI::Dispatch(this);
 
       this->renderManager->Render();
 
@@ -118,10 +105,12 @@ namespace Ullr {
 
   bool Application::OnKeyPressed(Events::KeyPressedEvent& e)
   {
-    if (e.getKeyCode() == ULLR_KEY_ESCAPE)
+    if (e.getKeyCode() == ULLR_KEY_ESCAPE) {
       this->running = false;
+      return true;
+    }
 
-    return true;
+    return false; // Pass through other key events
   }
 
 }

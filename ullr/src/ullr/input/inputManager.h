@@ -5,7 +5,7 @@
 namespace Ullr::Input {
 
   // Interface
-  class ULLR_API InputManager
+  class InputManager
   {
   public:
     inline static bool IsKeyPressed(int32 keyCode) {

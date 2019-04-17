@@ -1,6 +1,9 @@
 #pragma once
 
 // For use by UllrEngine client applications only
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 #include "ullr/defines.h"
 #include "ullr/core.h"

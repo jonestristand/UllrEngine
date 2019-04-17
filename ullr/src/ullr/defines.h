@@ -1,5 +1,20 @@
 #pragma once
 
+#include <cstdint>
+
+// Custom types
+typedef uint8_t   byte;
+typedef uint8_t   uint8;
+typedef uint16_t  uint16;
+typedef uint32_t  uint32;
+typedef uint64_t  uint64;
+
+typedef int8_t    sbyte;
+typedef int8_t    int8;
+typedef int16_t   int16;
+typedef int32_t   int32;
+typedef int64_t   int64;
+
 #define S(x) #x
 #define SS(x) S(x)
 
@@ -10,34 +25,6 @@
 
 #define OGL_MAJOR 4
 #define OGL_MINOR 6
-
-#ifdef UL_DYNAMIC_LINK
-  #if defined ULLR_PLATFORM_WINDOWS || defined __CYGWIN__
-    #define ULLR_API_DLL_IMPORT __declspec(dllimport)
-    #define ULLR_API_DLL_EXPORT __declspec(dllexport)
-    #define ULLR_API_DLL_LOCAL
-  #else
-    #if __GNUC__ >= 4
-      #define ULLR_API_DLL_IMPORT __attribute__ ((visibility ("default")))
-      #define ULLR_API_DLL_EXPORT __attribute__ ((visibility ("default")))
-      #define ULLR_API_DLL_LOCAL  __attribute__ ((visibility ("hidden")))
-    #else
-      #define ULLR_API_DLL_IMPORT
-      #define ULLR_API_DLL_EXPORT
-      #define ULLR_API_DLL_LOCAL
-    #endif
-  #endif
-
-  #ifdef ULLR_BUILD_DLL // defined if Ullr is compiled as a DLL
-    #define ULLR_API ULLR_API_DLL_EXPORT
-  #else
-    #define ULLR_API ULLR_API_DLL_IMPORT
-  #endif
-  #define ULLR_LOCAL ULLR_API_DLL_LOCAL
-#else
-  #define ULLR_API
-  #define ULLR_LOCAL
-#endif
 
 #ifdef UL_ENABLE_ASSERTS
   #ifdef ULLR_PLATFORM_WINDOWS

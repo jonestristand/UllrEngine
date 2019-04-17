@@ -6,7 +6,7 @@
 
 namespace Ullr {
 
-  class ULLR_API MacOSWindow : public Window
+  class MacOSWindow : public Window
   {
   public:
     MacOSWindow(const WindowProps& props);

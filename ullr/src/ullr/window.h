@@ -29,7 +29,7 @@ namespace Ullr {
     {}
   };
 
-  class ULLR_API Window
+  class Window
   {
   public:
     using EventCallbackFn = std::function<void(Events::Event&)>;

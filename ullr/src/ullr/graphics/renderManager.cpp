@@ -3,7 +3,7 @@
 
 #include "glad/glad.h" // TODO: Move out to platform-specific renderer
 
-#include "renderMacros.h"
+#include "command/generalCommands.hpp"
 
 namespace Ullr::Graphics {
 
@@ -45,9 +45,9 @@ namespace Ullr::Graphics {
     std::cout << "RenderManager::Shutdown" << std::endl;
   }
 
-  void* RenderManager::Submit(RenderCommandFn fn, uint32 size)
+  void* RenderManager::SubmitToQueue(uint32 size)
   {
-    return this->commandQueue.Allocate(fn, size);
+    return this->commandQueue.Allocate(size);
   }
 
   void RenderManager::Render()
@@ -57,24 +57,12 @@ namespace Ullr::Graphics {
 
   void RenderManager::SetClearColor(float r, float g, float b)
   {
-    DISPATCH_RENDER_FN3(SetClearColor, r, g, b, {
-      glClearColor(r, g, b, 1.0f);
-      });
-
+    Command::SetClearColor::Dispatch(r, g, b);
   }
 
   void RenderManager::ClearBuffer()
   {
-    DISPATCH_RENDER_FN(ClearBuffer, {
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    });
-  }
-
-  void RenderManager::DrawIndexed(uint32 count)
-  {
-    DISPATCH_RENDER_FN1(DrawIndexed, count, {
-      glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
-    });
+    Command::ClearBuffer::Dispatch();
   }
 
 }

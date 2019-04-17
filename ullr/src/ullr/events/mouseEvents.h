@@ -6,7 +6,7 @@
 namespace Ullr::Events {
 
   /// === Mouse Moved Event ===
-  class ULLR_API MouseMovedEvent : public Event
+  class MouseMovedEvent : public Event
   {
   public:
     MouseMovedEvent(float x, float y)
@@ -30,7 +30,7 @@ namespace Ullr::Events {
   };
 
   /// === Mouse Scrolled Event ===
-  class ULLR_API MouseScrolledEvent : public Event
+  class MouseScrolledEvent : public Event
   {
   public:
     MouseScrolledEvent(float offsetX, float offsetY)
@@ -54,7 +54,7 @@ namespace Ullr::Events {
   };
 
   /// === Mouse Button Event (abstract) ===
-  class ULLR_API MouseButtonEvent : public Event
+  class MouseButtonEvent : public Event
   {
   public:
     inline int32 getButton() { return this->button; }
@@ -69,7 +69,7 @@ namespace Ullr::Events {
   };
 
   /// === Mouse Button Pressed Event ===
-  class ULLR_API MouseButtonPressedEvent : public MouseButtonEvent
+  class MouseButtonPressedEvent : public MouseButtonEvent
   {
   public:
     MouseButtonPressedEvent(int32 button)
@@ -86,7 +86,7 @@ namespace Ullr::Events {
   };
 
   /// === Mouse Button Released Event ===
-  class ULLR_API MouseButtonReleasedEvent : public MouseButtonEvent
+  class MouseButtonReleasedEvent : public MouseButtonEvent
   {
   public:
     MouseButtonReleasedEvent(int32 button)

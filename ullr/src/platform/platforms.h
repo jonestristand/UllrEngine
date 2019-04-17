@@ -8,3 +8,7 @@ enum Platforms {
   OpenGL,
   DirectX
 };
+
+static Platforms GetPlatform() {
+  return Platforms::Windows | Platforms::OpenGL;
+}

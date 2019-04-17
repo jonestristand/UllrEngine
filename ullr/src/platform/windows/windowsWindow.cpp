@@ -83,6 +83,8 @@ namespace Ullr {
       data.Width = width;
       data.Height = height;
 
+      glViewport(0, 0, data.Width, data.Height);
+
       Events::WindowResizedEvent e(width, height);
       data.EventCallback(e);
     });

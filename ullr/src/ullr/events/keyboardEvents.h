@@ -6,7 +6,7 @@
 namespace Ullr::Events {
 
   /// === Abstract Key Event ===
-  class ULLR_API KeyEvent : public Event
+  class KeyEvent : public Event
   {
   public:
     inline int32 getKeyCode() const { return this->keyCode; }
@@ -21,7 +21,7 @@ namespace Ullr::Events {
   };
 
   /// === Key Pressed Event ===
-  class ULLR_API KeyPressedEvent : public KeyEvent
+  class KeyPressedEvent : public KeyEvent
   {
   public:
     KeyPressedEvent(int32 keyCode, uint32 repeatCount)
@@ -43,7 +43,7 @@ namespace Ullr::Events {
   };
 
   /// === Key Released Event ===
-  class ULLR_API KeyReleasedEvent : public KeyEvent
+  class KeyReleasedEvent : public KeyEvent
   {
   public:
     KeyReleasedEvent(int32 keyCode)
@@ -60,7 +60,7 @@ namespace Ullr::Events {
   };
 
   /// === Key Typed Event ===
-  class ULLR_API KeyTypedEvent : public KeyEvent
+  class KeyTypedEvent : public KeyEvent
   {
   public:
     KeyTypedEvent(int32 keyCode)

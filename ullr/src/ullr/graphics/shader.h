@@ -13,11 +13,11 @@ namespace Ullr::Graphics {
     void CompileAndLoad();
     void Bind();
 
-    void SetUniform1f(const std::string& name, float val);
-    void SetUniform3f(const std::string& name, glm::vec3 vec);
-    void SetUniform4f(const std::string& name, glm::vec4 vec);
-    void SetUniform1i(const std::string& name, int32 val);
-    void SetUniformMatrix4f(const std::string& name, glm::mat4 mat);
+    void SetUniform(const std::string& name, float val);
+    void SetUniform(const std::string& name, const glm::vec3& vec);
+    void SetUniform(const std::string& name, const glm::vec4& vec);
+    void SetUniform(const std::string& name, int32 val);
+    void SetUniform(const std::string& name, const glm::mat4& mat);
 
     inline bool IsLoaded() { return this->programLoaded; }
 

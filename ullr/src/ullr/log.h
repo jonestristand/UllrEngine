@@ -8,7 +8,7 @@
 
 namespace Ullr {
 
-  class  Log
+  class Log
   {
   public:
     static void Init(spdlog::level::level_enum coreLevel = spdlog::level::trace, spdlog::level::level_enum clientLevel = spdlog::level::trace);
@@ -32,6 +32,22 @@ namespace Ullr {
   #define UL_CORE_INFO(...)    ::Ullr::Log::GetCoreLogger()->info(__VA_ARGS__)
   #define UL_CORE_TRACE(...)   ::Ullr::Log::GetCoreLogger()->trace(__VA_ARGS__)
 
+  // Render Queue logger
+  #ifdef LOG_RQ
+    #define UL_RQ_FATAL(...)   ::Ullr::Log::GetCoreLogger()->critical(__VA_ARGS__)
+    #define UL_RQ_ERROR(...)   ::Ullr::Log::GetCoreLogger()->error(__VA_ARGS__)
+    #define UL_RQ_WARN(...)    ::Ullr::Log::GetCoreLogger()->warn(__VA_ARGS__)
+    #define UL_RQ_INFO(...)    ::Ullr::Log::GetCoreLogger()->info(__VA_ARGS__)
+    #define UL_RQ_TRACE(...)   ::Ullr::Log::GetCoreLogger()->trace(__VA_ARGS__)
+  #else
+    #define UL_RQ_FATAL(...)
+    #define UL_RQ_ERROR(...)
+    #define UL_RQ_WARN(...)
+    #define UL_RQ_INFO(...)
+    #define UL_RQ_TRACE(...)
+  #endif
+
+
   // Client logger
   #define UL_FATAL(...)        ::Ullr::Log::GetClientLogger()->critical(__VA_ARGS__)
   #define UL_ERROR(...)        ::Ullr::Log::GetClientLogger()->error(__VA_ARGS__)
@@ -47,6 +63,12 @@ namespace Ullr {
   #define UL_CORE_WARN(...)
   #define UL_CORE_INFO(...)
   #define UL_CORE_TRACE(...)
+
+  #define UL_RQ_FATAL(...)
+  #define UL_RQ_ERROR(...)
+  #define UL_RQ_WARN(...)
+  #define UL_RQ_INFO(...)
+  #define UL_RQ_TRACE(...)
 
   #define UL_FATAL(...)
   #define UL_ERROR(...)

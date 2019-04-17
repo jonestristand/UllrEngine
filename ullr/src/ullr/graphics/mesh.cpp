@@ -1,8 +1,8 @@
 #include "ullrpch.h"
 #include "mesh.h"
 
-#include "renderManager.h"
-#include "renderMacros.h"
+//#include "renderManager.h"
+#include "command/meshCommands.hpp"
 
 #include "glad/glad.h"
 
@@ -54,15 +54,12 @@ namespace Ullr::Graphics {
         num = std::to_string(specularN++);
 
       this->textures[i].Bind(i); // Bind the texture to slot i
-      shader.SetUniform1i("material." + name + num, i); // Pass slot i to the shader material struct
+      // TODO: Should not need cast
+      shader.SetUniform("material." + name + num, (int32)i); // Pass slot i to the shader material struct
     }
-
+    
     // Add actual render command
-    DISPATCH_RENDER_SELF_FN(RenderMesh, {
-      glBindVertexArray(self->vao);
-      glDrawElements(GL_TRIANGLES, self->indices.size(), GL_UNSIGNED_INT, 0);
-      glBindVertexArray(0);
-    });
+    Command::RenderMesh::Dispatch(this->vao, this->indices.size());
   }
 
 }

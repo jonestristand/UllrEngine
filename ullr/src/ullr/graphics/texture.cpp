@@ -4,8 +4,8 @@
 #include "stb_image.h"
 #include "glad/glad.h"
 
-#include "renderManager.h"
-#include "renderMacros.h"
+//#include "renderManager.h"
+#include "command/textureCommands.hpp"
 
 namespace Ullr::Graphics {
 
@@ -47,24 +47,12 @@ namespace Ullr::Graphics {
 
   void Texture::UnloadTexture()
   {
-    DISPATCH_RENDER_SELF_FN(DeleteTexture, {
-      glDeleteTextures(1, &self->textureId);
-    });
+    Command::UnloadTexture::Dispatch(this->textureId);
   }
 
   void Texture::Bind(uint32 slot)
   {
-    DISPATCH_RENDER_SELF_FN1(BindTexture, slot, {
-      glActiveTexture(GL_TEXTURE0 + slot);
-      glBindTexture(GL_TEXTURE_2D, self->textureId);
-    });
-  }
-
-  void Texture::Unbind()
-  {
-    DISPATCH_RENDER_FN(UnbindTexture, {
-      glBindTexture(GL_TEXTURE_2D, 0);
-    });
+    Command::BindTexture::Dispatch(this->textureId, slot);
   }
 
 }

@@ -19,13 +19,11 @@ namespace Ullr::Graphics {
     void Init() override;
     void Shutdown() override;
 
-    void* Submit(RenderCommandFn fn, uint32 size);
+    void* SubmitToQueue(uint32 size);
     void Render();
 
     void SetClearColor(float r, float g, float b);
     void ClearBuffer();
-
-    void DrawIndexed(uint32 count);
 
     inline static std::shared_ptr<RenderManager> Get() { return RenderManager::instance; }
 

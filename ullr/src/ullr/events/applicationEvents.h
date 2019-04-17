@@ -3,10 +3,12 @@
 #include "event.h"
 #include "ullr/defines.h"
 
+#include <sstream>
+
 namespace Ullr::Events {
 
   /// === Window Resized Event ===
-  class ULLR_API WindowResizedEvent : public Event
+  class WindowResizedEvent : public Event
   {
   public:
     WindowResizedEvent(uint32 width, uint32 height)
@@ -30,7 +32,7 @@ namespace Ullr::Events {
   };
 
   /// === Window Closed Event ===
-  class ULLR_API WindowClosedEvent : public Event
+  class WindowClosedEvent : public Event
   {
   public:
 

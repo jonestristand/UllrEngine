@@ -1,7 +1,8 @@
 #pragma once
 
-#include "ullrpch.h"
 #include "ullr/defines.h"
+#include <string>
+#include <functional>
 
 namespace Ullr::Events {
 
@@ -30,7 +31,7 @@ namespace Ullr::Events {
 
   #define EVENT_CLASS_CATEGORY(category) virtual EventCategory getCategoryFlags() const override { return category; }
 
-  class ULLR_API Event
+  class Event
   {
   public:
     bool Handled = false;
@@ -47,7 +48,7 @@ namespace Ullr::Events {
 
   };
 
-  class ULLR_API EventDispatcher
+  class EventDispatcher
   {
     template<typename T>
     using EventFn = std::function<bool(T&)>;

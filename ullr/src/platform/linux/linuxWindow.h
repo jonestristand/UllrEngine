@@ -6,7 +6,7 @@
 
 namespace Ullr {
 
-  class ULLR_API LinuxWindow : public Window
+  class LinuxWindow : public Window
   {
   public:
     LinuxWindow(const WindowProps& props);

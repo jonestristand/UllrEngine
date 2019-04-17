@@ -10,10 +10,17 @@
 #include "events/applicationEvents.h"
 #include "events/keyboardEvents.h"
 
+// Forward declaration for friend class
+namespace Ullr::Graphics::Command {
+  class RenderImGUI;
+}
+
 namespace Ullr {
 
-  class ULLR_API Application
+  class Application
   {
+    friend Graphics::Command::RenderImGUI;
+
   public:
     Application();
     virtual ~Application();

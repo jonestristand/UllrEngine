@@ -1,6 +1,7 @@
 #include "ullrpch.h"
-
 #include "renderCommandQueue.h"
+
+#include "command/renderCommand.hpp"
 
 namespace Ullr::Graphics {
 
@@ -18,12 +19,11 @@ namespace Ullr::Graphics {
     delete[] this->cmdQueue;
   }
 
-  void* RenderCommandQueue::Allocate(RenderCommandFn fn, uint32 size)
+  void* RenderCommandQueue::Allocate(uint32 size)
   {
     // Allocate and save function pointer
-    *(RenderCommandFn*)this->cmdQueuePtr = fn;
-    this->cmdQueuePtr += sizeof(RenderCommandFn);
-    ++this->cmdCount;
+    //*(RenderCommandFn*)this->cmdQueuePtr = fn;
+    //this->cmdQueuePtr += sizeof(RenderCommandFn);
 
     // Save data block size
     *(uint32*)this->cmdQueuePtr = size;
@@ -32,25 +32,33 @@ namespace Ullr::Graphics {
     // And skip ahead to end of data block for next function
     this->cmdQueuePtr += size;
 
+    // Increment the command counter
+    ++this->cmdCount;
+
     return this->cmdQueuePtr - size; // Return start of memory block
   }
 
   void RenderCommandQueue::Execute()
   {
-    UL_CORE_TRACE("RenderCommandQueue::Execute -- {0} commands, {1} bytes", this->cmdCount, (this->cmdQueuePtr - this->cmdQueue));
+    UL_RQ_TRACE("RenderCommandQueue::Execute -- {0} commands, {1} bytes", this->cmdCount, (this->cmdQueuePtr - this->cmdQueue));
 
     byte* buffer = this->cmdQueue;
 
     for (uint32 i = 0; i < this->cmdCount; ++i) {
-      RenderCommandFn function = *(RenderCommandFn*)buffer;
-      buffer += sizeof(RenderCommandFn);
-
       uint32 size = *(uint32*)buffer;
       buffer += sizeof(size);
 
-      // Invoke queued function
-      function(buffer);
+      // Retrieve command functor
+      Command::RenderCommand* cmd = (Command::RenderCommand*)buffer;// function = *(RenderCommandFn*)buffer;
 
+      // Invoke queued command
+      cmd->Execute();
+
+      // Cleanup command
+      //cmd->Destroy();
+      cmd->~RenderCommand();
+
+      // Move to next command
       buffer += size;
     }
 
