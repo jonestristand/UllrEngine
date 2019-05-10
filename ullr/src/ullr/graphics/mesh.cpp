@@ -1,65 +1,18 @@
 #include "ullrpch.h"
 #include "mesh.h"
 
-//#include "renderManager.h"
-#include "command/meshCommands.hpp"
+#include "platform/platform.h"
+#include "platform/opengl/openglMesh.h"
 
-#include "glad/glad.h"
+namespace Ullr::Graphics
+{
 
-namespace Ullr::Graphics {
-  
-  Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<uint32>& indices, const std::vector<Texture>& textures)
-    : vao(0)
+  MeshPtr Mesh::CreateMesh(const std::vector<Vertex>& vertices, const std::vector<uint32>& indices, const TexturePtrList& textures, bool keepData, RenderType renderType)
   {
-    this->vertices = vertices;
-    this->indices = indices;
-    this->textures = textures;
-
-    glGenVertexArrays(1, &this->vao);
-    glGenBuffers(1, &this->vbo);
-    glGenBuffers(1, &this->ebo);
-
-
-    glBindVertexArray(this->vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, this->vbo);
-    glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Mesh::Vertex), &this->vertices[0], GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->indices.size() * sizeof(uint32), &this->indices[0], GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (void*)offsetof(Vertex, Normal));
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (void*)offsetof(Vertex, TexCoords));
-
-    glBindVertexArray(0);
-  }
-  
-  Mesh::~Mesh()
-  { }
-
-  void Mesh::Render(Ullr::Graphics::Shader& shader)
-  {
-    uint32 diffuseN = 1, specularN = 1;
-    for (uint32 i = 0; i < this->textures.size(); i++) {
-
-      std::string num, name = this->textures[i].getType();
-
-      if (name == "diffuse")
-        num = std::to_string(diffuseN++);
-      else if (name == "specular")
-        num = std::to_string(specularN++);
-
-      this->textures[i].Bind(i); // Bind the texture to slot i
-      // TODO: Should not need cast
-      shader.SetUniform("material." + name + num, (int32)i); // Pass slot i to the shader material struct
+    switch (GetGfxPlatform()) {
+      case GfxPlatform::OpenGL: return new OpenGL::OpenGLMesh(vertices, indices, textures, keepData, renderType); //return std::make_unique<OpenGL::OpenGLMesh>(vertices, indices, textures, keepData);
+      case GfxPlatform::DirectX: UL_CORE_ASSERT(false, "DirectX support not yet implemented");
     }
-    
-    // Add actual render command
-    Command::RenderMesh::Dispatch(this->vao, this->indices.size());
   }
 
 }

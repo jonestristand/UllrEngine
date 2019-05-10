@@ -1,7 +1,7 @@
 #include "ullrpch.h"
 #include "renderCommandQueue.h"
 
-#include "command/renderCommand.hpp"
+#include "renderCommand.h"
 
 namespace Ullr::Graphics {
 
@@ -21,11 +21,7 @@ namespace Ullr::Graphics {
 
   void* RenderCommandQueue::Allocate(uint32 size)
   {
-    // Allocate and save function pointer
-    //*(RenderCommandFn*)this->cmdQueuePtr = fn;
-    //this->cmdQueuePtr += sizeof(RenderCommandFn);
-
-    // Save data block size
+    // Save functor data block size
     *(uint32*)this->cmdQueuePtr = size;
     this->cmdQueuePtr += sizeof(uint32);
 
@@ -49,13 +45,12 @@ namespace Ullr::Graphics {
       buffer += sizeof(size);
 
       // Retrieve command functor
-      Command::RenderCommand* cmd = (Command::RenderCommand*)buffer;// function = *(RenderCommandFn*)buffer;
+      RenderCommand* cmd = (RenderCommand*)buffer;
 
       // Invoke queued command
       cmd->Execute();
 
       // Cleanup command
-      //cmd->Destroy();
       cmd->~RenderCommand();
 
       // Move to next command

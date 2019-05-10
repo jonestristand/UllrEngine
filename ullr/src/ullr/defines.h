@@ -26,6 +26,9 @@ typedef int64_t   int64;
 #define OGL_MAJOR 4
 #define OGL_MINOR 6
 
+// Enable or disable render queue logging in non-dist builds
+// #define LOG_RQ
+
 #ifdef UL_ENABLE_ASSERTS
   #ifdef ULLR_PLATFORM_WINDOWS
     #define UL_DEBUG_STOP() __debugbreak()

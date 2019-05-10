@@ -11,21 +11,13 @@
 #include "ullr/application.h"
 
 // TODO: need to abstract this to platform-specific
-#include <GLFW/glfw3.h> // TODO: remove this
-#include <glad/glad.h> // TODO: remove this
+#include <GLFW/glfw3.h>
 
 namespace Ullr {
 
   ImGuiLayer::ImGuiLayer()
     :Layer("ImGUILayer"), io(nullptr)
-  {
-    //this->io = ImGui::GetIO();
-  }
-
-
-  ImGuiLayer::~ImGuiLayer()
-  {
-  }
+  { }
 
   void ImGuiLayer::OnAttach()
   {
@@ -57,7 +49,7 @@ namespace Ullr {
     GLFWwindow* window = static_cast<GLFWwindow*>(app.getWindow().GetNativeWindow());
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 410");
+    ImGui_ImplOpenGL3_Init("#version 430");
 
     this->io = &io;
   }

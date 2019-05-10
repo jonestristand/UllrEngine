@@ -1,58 +1,28 @@
 #include "ullrpch.h"
 #include "texture.h"
 
-#include "stb_image.h"
-#include "glad/glad.h"
+#include "platform/platform.h"
+#include "platform/opengl/openglTexture.h"
 
-//#include "renderManager.h"
-#include "command/textureCommands.hpp"
+namespace Ullr::Graphics
+{
 
-namespace Ullr::Graphics {
-
-  Texture::Texture(const std::string& path, const std::string& type)
-    : textureId(0), filePath(path), type(type), localBuffer(nullptr), width(0), height(0), nChannels(0)
-  { }
-
-  Texture::Texture(const std::string& path)
-    : Texture(path, "diffuse")
-  { }
-
-  Texture::~Texture()
-  { }
-
-  void Texture::LoadTexture()
+  Texture* Texture::CreateTexture(const std::string& filename, const std::string& type)
   {
-    auto self = this;
-    // TODO: Debug this
-    //DISPATCH_RENDER_SELF_FN(CreateTexture, {
-      stbi_set_flip_vertically_on_load(true);
-      self->localBuffer = stbi_load(self->filePath.c_str(), &self->width, &self->height, &self->nChannels, 4);
-
-      glGenTextures(1, &self->textureId);
-      glBindTexture(GL_TEXTURE_2D, self->textureId);
-
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, self->width, self->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, self->localBuffer);
-      glGenerateMipmap(GL_TEXTURE_2D);
-
-      glBindTexture(GL_TEXTURE_2D, 0);
-      if (self->localBuffer)
-        stbi_image_free(self->localBuffer);
-    //});
+    switch (GetGfxPlatform())
+    {
+      case GfxPlatform::OpenGL: return new OpenGL::OpenGLTexture(filename, type);
+      case GfxPlatform::DirectX: UL_CORE_ASSERT(false, "DirectX support not yet implemented");
+    }
   }
 
-  void Texture::UnloadTexture()
+  Texture* Texture::CreateTexture(byte* fileData, int32 width, int32 height, const std::string& type)
   {
-    Command::UnloadTexture::Dispatch(this->textureId);
-  }
-
-  void Texture::Bind(uint32 slot)
-  {
-    Command::BindTexture::Dispatch(this->textureId, slot);
+    switch (GetGfxPlatform())
+    {
+    case GfxPlatform::OpenGL: return new OpenGL::OpenGLTexture(fileData, width, height, type);
+    case GfxPlatform::DirectX: UL_CORE_ASSERT(false, "DirectX support not yet implemented");
+    }
   }
 
 }

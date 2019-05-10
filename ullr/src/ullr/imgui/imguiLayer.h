@@ -15,7 +15,7 @@ namespace Ullr {
   {
   public:
     ImGuiLayer();
-    virtual ~ImGuiLayer();
+    virtual ~ImGuiLayer() = default;
 
     virtual void OnAttach() override;
     virtual void OnDetach() override;

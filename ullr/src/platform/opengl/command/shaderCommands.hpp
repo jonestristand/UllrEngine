@@ -3,7 +3,7 @@
 #include "ullr/defines.h"
 #include "ullr/log.h"
 #include "ullr/graphics/renderManager.h"
-#include "renderCommand.hpp"
+#include "ullr/graphics/renderCommand.h"
 
 #include "glad/glad.h"
 #include "glm/glm.hpp"
@@ -22,10 +22,8 @@ namespace Ullr::Graphics::Command
     {}
 
     void Execute() override {
-      // TODO: change this to set uniform without binding
-      glUseProgram(programId);
       int32 uniformLocation = glGetUniformLocation(programId, name.c_str());
-      glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(mat));
+      glProgramUniformMatrix4fv(programId, uniformLocation, 1, GL_FALSE, glm::value_ptr(mat));
 
       UL_RQ_TRACE("[RenderQueue] -- Command::SetUniformMatrix4f (prog {0}): uniform: '{1}' = {2}(mat)", programId, name, mat);
     }
@@ -37,7 +35,7 @@ namespace Ullr::Graphics::Command
 
   public: //STATIC CREATOR
     static void Dispatch(uint32 programId, const std::string& name, const glm::mat4& mat) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(SetUniformMatrix4f));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetUniformMatrix4f));
       new (mem) SetUniformMatrix4f(programId, name, mat);
     }
   };
@@ -52,10 +50,8 @@ namespace Ullr::Graphics::Command
     {}
 
     void Execute() override {
-      // TODO: change this to set uniform without binding
-      glUseProgram(programId);
       int32 uniformLocation = glGetUniformLocation(programId, name.c_str());
-      glUniform1i(uniformLocation, val);
+      glProgramUniform1i(programId, uniformLocation, val);
 
       UL_RQ_TRACE("[RenderQueue] -- Command::SetUniform1i (prog {0}): uniform: '{1}' = {2}(int32)", programId, name, val);
     }
@@ -67,8 +63,36 @@ namespace Ullr::Graphics::Command
 
   public: // STATIC CREATOR
     static void Dispatch(uint32 programId, const std::string& name, int32 val) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(SetUniform1i));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetUniform1i));
       new (mem) SetUniform1i(programId, name, val);
+    }
+  };
+
+  // --------------------------------------------------------------------------
+  // -- SetUniform1ui                                                         --
+  // --------------------------------------------------------------------------
+  class SetUniform1ui : RenderCommand {
+  public:
+    SetUniform1ui(uint32 programId, const std::string& name, uint32 val)
+      :programId(programId), name(name), val(val)
+    {}
+
+    void Execute() override {
+      int32 uniformLocation = glGetUniformLocation(programId, name.c_str());
+      glProgramUniform1ui(programId, uniformLocation, val);
+
+      UL_RQ_TRACE("[RenderQueue] -- Command::SetUniform1i (prog {0}): uniform: '{1}' = {2}(uint32)", programId, name, val);
+    }
+
+  private:
+    uint32 programId;
+    std::string name;
+    uint32 val;
+
+  public: // STATIC CREATOR
+    static void Dispatch(uint32 programId, const std::string& name, uint32 val) {
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetUniform1ui));
+      new (mem) SetUniform1ui(programId, name, val);
     }
   };
 
@@ -82,10 +106,8 @@ namespace Ullr::Graphics::Command
     {}
 
     void Execute() override {
-      // TODO: change this to set uniform without binding
-      glUseProgram(programId);
       int32 uniformLocation = glGetUniformLocation(programId, name.c_str());
-      glUniform4f(uniformLocation, vec[0], vec[1], vec[2], vec[3]);
+      glProgramUniform4f(programId, uniformLocation, vec[0], vec[1], vec[2], vec[3]);
 
       UL_RQ_TRACE("[RenderQueue] -- Command::SetUniform4f (prog {0}): uniform: '{1}' = {2}(vec4)", programId, name, vec);
     }
@@ -97,7 +119,7 @@ namespace Ullr::Graphics::Command
 
   public: // STATIC CREATOR
     static void Dispatch(uint32 programId, const std::string& name, const glm::vec4& vec) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(SetUniform4f));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetUniform4f));
       new (mem) SetUniform4f(programId, name, vec);
     }
   };
@@ -112,10 +134,8 @@ namespace Ullr::Graphics::Command
     {}
 
     void Execute() override {
-      // TODO: change this to set uniform without binding
-      glUseProgram(programId);
       int32 uniformLocation = glGetUniformLocation(programId, name.c_str());
-      glUniform3f(uniformLocation, vec[0], vec[1], vec[2]);
+      glProgramUniform3f(programId, uniformLocation, vec[0], vec[1], vec[2]);
 
       UL_RQ_TRACE("[RenderQueue] -- Command::SetUniform3f (prog {0}): uniform: '{1}' = {2}(vec3)", programId, name, vec);
     }
@@ -127,7 +147,7 @@ namespace Ullr::Graphics::Command
 
   public: // STATIC CREATOR
     static void Dispatch(uint32 programId, const std::string& name, const glm::vec3& vec) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(SetUniform3f));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetUniform3f));
       new (mem) SetUniform3f(programId, name, vec);
     }
 
@@ -143,10 +163,8 @@ namespace Ullr::Graphics::Command
     {}
 
     void Execute() override {
-      // TODO: change this to set uniform without binding
-      glUseProgram(programId);
       int32 uniformLocation = glGetUniformLocation(programId, name.c_str());
-      glUniform1f(uniformLocation, val);
+      glProgramUniform1f(programId, uniformLocation, val);
 
       UL_RQ_TRACE("[RenderQueue] -- Command::SetUniform1f (prog {0}): uniform: '{1}' = {2}(float)", programId, name, val);
     }
@@ -158,7 +176,7 @@ namespace Ullr::Graphics::Command
 
   public: // STATIC CREATOR
     static void Dispatch(uint32 programId, const std::string& name, float val) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(SetUniform1f));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetUniform1f));
       new (mem) SetUniform1f(programId, name, val);
     }
   };
@@ -173,7 +191,6 @@ namespace Ullr::Graphics::Command
     {}
 
     void Execute() override {
-      // TODO: change this to set uniform without binding
       glUseProgram(programId);
 
       UL_RQ_TRACE("[RenderQueue] -- Command::BindShader (prog {0})", programId);
@@ -184,7 +201,7 @@ namespace Ullr::Graphics::Command
 
   public: // STATIC CREATOR
     static void Dispatch(uint32 programId) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(BindShader));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(BindShader));
       new (mem) BindShader(programId);
     }
   };

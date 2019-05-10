@@ -16,7 +16,7 @@ namespace Ullr {
     Ullr::Core::PlatformStartup();
 
     // Create renderer
-//    Graphics::RenderManager::Init();
+//    Graphics::OpenGLRenderManager::Init();
   }
 
   /* static */void Core::Shutdown()
@@ -26,7 +26,7 @@ namespace Ullr {
     UL_CORE_TRACE("=== Ullr Engine Core shutdown ======================");
 
     // Destroy renderer
-//    Graphics::RenderManager::Shutdown();
+//    Graphics::OpenGLRenderManager::Shutdown();
   }
 
   Core::Core()

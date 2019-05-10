@@ -7,9 +7,7 @@
 #include "utils/fpsImGuiLayer.h"
 #include "graphics/command/imguiCommands.hpp"
 
-// TODO: THIS IS TEMPORARY
 #include "input/keyCodes.h"
-#include <GLFW/glfw3.h>
 
 
 namespace Ullr {
@@ -17,6 +15,7 @@ namespace Ullr {
   Application* Application::instance = nullptr;
 
   Application::Application()
+    : currentCamera(nullptr)
   {
     UL_CORE_ASSERT(!Application::instance, "Application already exists!")
     Application::instance = this;
@@ -32,8 +31,12 @@ namespace Ullr {
     this->window->setEventCallback(ULLR_BIND_EVENT_FN(Application::OnEvent));
 
     // Create managers
-    this->renderManager = Ullr::Graphics::RenderManager::Create();
+    this->renderManager = Ullr::Graphics::RenderManager::Create(1024 * 1024 * 10);
+    this->timeManager = std::make_shared<TimeManager>();
+
+    // Initialize managers
     this->renderManager->Init();
+    this->timeManager->Init();
 
     // Create Imgui layers
     this->imguiLayer = new ImGuiLayer();
@@ -65,6 +68,9 @@ namespace Ullr {
   {
     this->renderManager->SetClearColor(0.1f, 0.1f, 0.1f);
 
+    UL_CORE_TRACE("Startup time: {0} sec", this->timeManager->getTime());
+    this->timeManager->Reset();
+
     while (this->running)
     {
       this->renderManager->ClearBuffer();
@@ -82,7 +88,9 @@ namespace Ullr {
       this->window->Update();
 
       // Update the timer
-      this->time = glfwGetTime();
+      this->timeManager->Update();
+      this->time = this->timeManager->getTime();
+      this->frameTime = this->timeManager->getFrametime();
     }
 
   }
@@ -101,6 +109,11 @@ namespace Ullr {
   {
     this->running = false;
     return true;
+  }
+
+  bool Application::OnWindowResized(Events::WindowResizedEvent& e)
+  {
+	  return false;
   }
 
   bool Application::OnKeyPressed(Events::KeyPressedEvent& e)

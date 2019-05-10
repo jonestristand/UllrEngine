@@ -1,0 +1,6 @@
+- Camera object
+- Transforms on model
+- Abstract OpenGL into platform
+- Add generic render objects
+- Write filesystem
+- Store compiled shader binaries, reload them if available

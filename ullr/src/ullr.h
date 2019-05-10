@@ -22,6 +22,8 @@
 
 #include "ullr/graphics/shader.h"
 #include "ullr/graphics/model.h"
+#include "ullr/graphics/camera.h"
+#include "ullr/graphics/loader/assimpModelLoader.h"
 
 // --- Entry point, compiles into client binary
 #include "entry.h"

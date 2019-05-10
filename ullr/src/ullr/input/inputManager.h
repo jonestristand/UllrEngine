@@ -33,7 +33,13 @@ namespace Ullr::Input {
       return instance->getMousePos();
     }
 
+    inline static void CaptureMouse(bool capture) {
+      UL_CORE_ASSERT(instance, "Input Manager not initialized");
+      return instance->captureMouse(capture);
+    }
+
   protected:
+    virtual void captureMouse(bool capture) = 0;
     virtual bool isKeyPressed(int32 keyCode) = 0;
     virtual bool isMouseButtonPressed(int32 buttonCode) = 0;
     virtual float getMouseX() = 0;

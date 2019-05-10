@@ -1,6 +1,6 @@
 #pragma once
 
-#include "renderCommand.hpp"
+#include "ullr/graphics/renderCommand.h"
 #include "ullr/graphics/renderManager.h"
 
 #include "ullr/defines.h"
@@ -14,7 +14,7 @@ namespace Ullr::Graphics::Command
   // --------------------------------------------------------------------------
   // -- RenderImGUI                                                          --
   // --------------------------------------------------------------------------
-  class RenderImGUI : Graphics::Command::RenderCommand
+  class RenderImGUI : RenderCommand
   {
   public:
     RenderImGUI(Application* self)
@@ -38,7 +38,7 @@ namespace Ullr::Graphics::Command
 
   public: //STATIC CREATOR
     static void Dispatch(Application* self) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(RenderImGUI));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(RenderImGUI));
       new (mem) RenderImGUI(self);
     }
   };

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Ullr::Graphics::Command {
+namespace Ullr::Graphics {
 
   class RenderCommand
   {

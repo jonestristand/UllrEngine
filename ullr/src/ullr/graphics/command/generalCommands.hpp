@@ -1,6 +1,6 @@
 #pragma once
 
-#include "renderCommand.hpp"
+#include "ullr/graphics/renderCommand.h"
 #include "ullr/graphics/renderManager.h"
 
 #include "ullr/defines.h"
@@ -15,7 +15,7 @@ namespace Ullr::Graphics::Command
   // --------------------------------------------------------------------------
   // -- SetClearColor                                                        --
   // --------------------------------------------------------------------------
-  class SetClearColor : Command::RenderCommand {
+  class SetClearColor : RenderCommand {
   public:
     SetClearColor(float r, float g, float b)
       :r(r), g(g), b(b)
@@ -33,7 +33,7 @@ namespace Ullr::Graphics::Command
 
   public: //STATIC CREATOR
     static void Dispatch(float r, float g, float b) {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(SetClearColor));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(SetClearColor));
       new (mem) SetClearColor(r, g, b);
     }
   };
@@ -41,7 +41,7 @@ namespace Ullr::Graphics::Command
   // --------------------------------------------------------------------------
   // -- ClearBuffer                                                          --
   // --------------------------------------------------------------------------
-  class ClearBuffer : Command::RenderCommand {
+  class ClearBuffer : RenderCommand {
   public:
     ClearBuffer()
     {}
@@ -53,7 +53,7 @@ namespace Ullr::Graphics::Command
 
   public: //STATIC CREATOR
     static void Dispatch() {
-      auto mem = ::Ullr::Graphics::RenderManager::Get()->SubmitToQueue(sizeof(ClearBuffer));
+      auto mem = ::Ullr::Graphics::RenderManager::Get()->AllocateInQueue(sizeof(ClearBuffer));
       new (mem) ClearBuffer();
     }
   };
